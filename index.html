@@ -797,7 +797,7 @@
             subtitle: race.Circuit.circuitName,
             location: `${race.Circuit.Location.locality}, ${race.Circuit.Location.country}`,
             date: race.date,
-            time: race.Time?.time?.slice(0, -1) + ' UTC' || 'TBA',
+            time: race.Time?.time ? race.Time.time.slice(0, -1) + ' UTC' : 'TBA',
             sprint: race.Sprints?.length > 0,
             status: new Date(race.date + 'T18:00:00Z') < new Date() ? 'pending_result' : 'upcoming',
             canceled: false,
@@ -976,24 +976,29 @@
     }
 
     container.innerHTML = data.map(d => {
-        let name = '';
+        let displayName = '';
         let teamHtml = '';
 
         if (type === 'drivers') {
-            // Driver Standings: Combine first & last name, show team below
-            name = `${d.Driver?.givenName || ''} ${d.Driver?.familyName || ''}`.trim();
+            // Driver standings
+            const firstName = d.Driver?.givenName || '';
+            const lastName = d.Driver?.familyName || '';
+            displayName = `${firstName} ${lastName}`.trim();
+            
             const teamName = d.Constructors?.[0]?.name || d.Constructor?.name || '';
-            if (teamName) teamHtml = `<div class="standings-team">${teamName}</div>`;
+            if (teamName) {
+                teamHtml = `<div class="standings-team">${teamName}</div>`;
+            }
         } else {
-            // Constructor Standings: Just show team name
-            name = d.Constructor?.name || 'Unknown Team';
+            // Constructor standings - just show the team name
+            displayName = d.Constructor?.name || 'Unknown Team';
         }
 
         return `
             <div class="standings-item">
                 <div class="standings-pos ${d.position <= 3 ? `p${d.position}` : 'normal'}">${d.position}</div>
                 <div class="standings-info">
-                    <div class="standings-name">${name}</div>
+                    <div class="standings-name">${displayName}</div>
                     ${teamHtml}
                 </div>
                 <div class="standings-points">${d.points} PTS</div>
