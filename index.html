@@ -969,22 +969,38 @@
     }
 
     function renderStandings(type, data) {
-        const container = type === 'drivers' ? driversListEl : constructorsListEl;
-        if (!data || data.length === 0) {
-            container.innerHTML = '<p style="color: var(--text-tertiary); text-align: center; padding: 20px;">No standings data available</p>';
-            return;
+    const container = type === 'drivers' ? driversListEl : constructorsListEl;
+    if (!data || data.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-tertiary); text-align: center; padding: 20px;">No standings data available</p>';
+        return;
+    }
+
+    container.innerHTML = data.map(d => {
+        let name = '';
+        let teamHtml = '';
+
+        if (type === 'drivers') {
+            // Driver Standings: Combine first & last name, show team below
+            name = `${d.Driver?.givenName || ''} ${d.Driver?.familyName || ''}`.trim();
+            const teamName = d.Constructors?.[0]?.name || d.Constructor?.name || '';
+            if (teamName) teamHtml = `<div class="standings-team">${teamName}</div>`;
+        } else {
+            // Constructor Standings: Just show team name
+            name = d.Constructor?.name || 'Unknown Team';
         }
-        container.innerHTML = data.map(d => `
+
+        return `
             <div class="standings-item">
                 <div class="standings-pos ${d.position <= 3 ? `p${d.position}` : 'normal'}">${d.position}</div>
                 <div class="standings-info">
-                    <div class="standings-name">${d.Driver?.givenName} ${d.Driver?.familyName || d.Constructor?.name}</div>
-                    ${type === 'drivers' && d.Constructor ? `<div class="standings-team">${d.Constructor.name}</div>` : ''}
+                    <div class="standings-name">${name}</div>
+                    ${teamHtml}
                 </div>
                 <div class="standings-points">${d.points} PTS</div>
             </div>
-        `).join('');
-    }
+        `;
+    }).join('');
+}
 
     function formatDate(dateStr) {
         const d = new Date(dateStr + 'T00:00:00');
