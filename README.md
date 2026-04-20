@@ -33,9 +33,13 @@
 ## 📸 Screenshots
 
 ### Light Mode
+<img width="1689" height="2427" alt="f1-calendar-2026-light" src="https://github.com/user-attachments/assets/c3225063-f288-44cd-ad66-8336a9e49f0f" />
+
 *Calendar view with race cards and standings*
 
 ### Dark Mode
+<img width="1689" height="2427" alt="f1-calendar-2026-dark" src="https://github.com/user-attachments/assets/e0711e13-a402-4d0f-a47c-edcae2c88312" />
+
 *Sleek dark theme for night viewing*
 
 ---
