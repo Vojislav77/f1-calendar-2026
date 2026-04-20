@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Calendar 2026</title>
+    <link rel="icon" type="image/svg+xml" href="image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23e10600'/%3E%3Cstop offset='1' stop-color='%23ff1e1e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%2315151e'/%3E%3Cpath d='M18 14h8l-4 12h6l-6 18h6l-4 12h8' stroke='url(%23g)' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='46' cy='16' r='4' fill='%23e10600'/%3E%3Ccircle cx='46' cy='32' r='4' fill='%23e10600' opacity='.6'/%3E%3Ccircle cx='46' cy='48' r='4' fill='%23e10600' opacity='.3'/%3E%3C/svg%3E">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #fafafa;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-tertiary: #86868b;
+            --border-color: rgba(0,0,0,0.08);
+            --border-hover: rgba(0,0,0,0.15);
+            --accent: #e10600;
+            --accent-light: #ff3b30;
+            --accent-bg: rgba(225,6,0,0.08);
+            --accent-bg-hover: rgba(225,6,0,0.14);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 14px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05);
+            --shadow-card: 0 2px 8px rgba(0,0,0,0.06);
+            --glass-bg: rgba(255,255,255,0.72);
+            --glass-border: rgba(255,255,255,0.3);
+            --sprint-bg: rgba(140,80,220,0.08);
+            --sprint-text: #7c3aed;
+            --sprint-border: rgba(140,80,220,0.2);
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0d0d12;
+            --bg-secondary: #16161d;
+            --bg-card: #1c1c25;
+            --bg-card-hover: #22222d;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --text-tertiary: #6e6e73;
+            --border-color: rgba(255,255,255,0.08);
+            --border-hover: rgba(255,255,255,0.15);
+            --accent-bg: rgba(225,6,0,0.12);
+            --accent-bg-hover: rgba(225,6,0,0.2);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 14px rgba(0,0,0,0.3);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.4);
+            --shadow-card: 0 2px 8px rgba(0,0,0,0.2);
+            --glass-bg: rgba(22,22,29,0.8);
+            --glass-border: rgba(255,255,255,0.06);
+            --sprint-bg: rgba(140,80,220,0.12);
+            --sprint-text: #a78bfa;
+            --sprint-border: rgba(140,80,220,0.25);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background var(--transition), color var(--transition);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-color);
+            transition: background var(--transition), border-color var(--transition);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon { width: 40px; height: 40px; }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span { color: var(--accent); }
+
+        .logo-year {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            margin-left: -4px;
+        }
+
+        .header-actions { display: flex; align-items: center; gap: 8px; }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+        }
+
+        .theme-toggle:hover { border-color: var(--border-hover); color: var(--text-primary); transform: scale(1.05); }
+        .theme-toggle svg { width: 20px; height: 20px; transition: transform var(--transition); }
+        .theme-toggle:active svg { transform: rotate(30deg); }
+        .sun-icon { display: none; }
+        .moon-icon { display: block; }
+        [data-theme="dark"] .sun-icon { display: block; }
+        [data-theme="dark"] .moon-icon { display: none; }
+
+        .content-spacer { height: 80px; background: transparent; }
+
+        .calendar-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .month-nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .month-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            transition: opacity var(--transition);
+        }
+
+        .nav-buttons { display: flex; gap: 8px; }
+
+        .nav-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+        }
+
+        .nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); background: var(--bg-card-hover); }
+        .nav-btn:active { transform: scale(0.92); }
+        .nav-btn svg { width: 18px; height: 18px; }
+        .nav-btn.disabled { opacity: 0.3; pointer-events: none; }
+
+        .month-dots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            padding: 0 12px;
+        }
+
+        .month-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border-color);
+            background: transparent;
+            cursor: pointer;
+            transition: all var(--transition);
+            position: relative;
+        }
+
+        .month-dot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.2); }
+        .month-dot.has-events::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+        .month-dot.has-events.active::after { display: none; }
+        .month-dot:hover { border-color: var(--accent); transform: scale(1.15); }
+
+        .month-dot-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity var(--transition);
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .month-dot:hover .month-dot-label { opacity: 1; }
+
+        .events-container { max-width: 1200px; margin: 0 auto; padding: 0 24px 48px; }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .event-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all var(--transition);
+            cursor: default;
+            position: relative;
+        }
+
+        .event-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .event-card.sprint-weekend { border-color: var(--sprint-border); }
+        .event-card.sprint-weekend:hover { border-color: var(--sprint-text); }
+        .event-card.canceled-race { opacity: 0.65; pointer-events: none; }
+        .event-card.canceled-race .event-card-accent { background: var(--text-tertiary); }
+
+        .event-card-accent { height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+        .event-card.sprint-weekend .event-card-accent { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+
+        .event-card-body { padding: 20px; }
+
+        .event-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .event-round {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            flex-shrink: 0;
+        }
+        .event-card.sprint-weekend .event-round { color: var(--sprint-text); }
+
+        .badge-group { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+        .event-sprint-badge, .status-badge {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .event-sprint-badge { color: var(--sprint-text); background: var(--sprint-bg); }
+        .status-badge.completed { background: rgba(34,197,94,0.12); color: #16a34a; }
+        .status-badge.upcoming { background: rgba(59,130,246,0.12); color: #2563eb; }
+        .status-badge.canceled { background: rgba(239,68,68,0.12); color: #dc2626; }
+
+        .event-name { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; line-height: 1.3; }
+        .event-subtitle { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
+
+        .event-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .event-detail { display: flex; align-items: center; gap: 10px; }
+
+        .event-detail-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: var(--accent-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+        .event-card.sprint-weekend .event-detail-icon { background: var(--sprint-bg); color: var(--sprint-text); }
+        .event-detail-icon svg { width: 16px; height: 16px; }
+
+        .event-detail-content { display: flex; flex-direction: column; }
+        .event-detail-label { font-size: 10px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.8px; }
+        .event-detail-value { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+
+        .podium-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .podium-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 10px;
+        }
+        .podium-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+        .podium-pos {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .podium-pos.gold { background: rgba(250,204,21,0.15); color: #ca8a04; }
+        .podium-pos.silver { background: rgba(156,163,175,0.15); color: #6b7280; }
+        .podium-pos.bronze { background: rgba(234,88,12,0.15); color: #c2410c; }
+        .podium-driver { font-size: 13px; font-weight: 600; }
+        .podium-team { font-size: 11px; color: var(--text-tertiary); }
+
+        .no-events {
+            text-align: center;
+            padding: 80px 24px;
+            animation: fadeInUp 0.4s ease-out;
+        }
+        .no-events-icon {
+            width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%;
+            background: var(--accent-bg); display: flex; align-items: center; justify-content: center;
+        }
+        .no-events-icon svg { width: 36px; height: 36px; color: var(--accent); }
+        .no-events h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .no-events p { color: var(--text-tertiary); font-size: 14px; }
+
+        .section-divider { max-width: 1200px; margin: 48px auto; height: 1px; background: var(--border-color); }
+        .section-header {
+            max-width: 1200px; margin: 0 auto; padding: 0 24px 24px;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+        }
+        .section-title { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+        .section-badge {
+            font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-bg);
+            padding: 6px 12px; border-radius: 8px; letter-spacing: 0.5px;
+        }
+        .section-badge.live { background: rgba(34,197,94,0.12); color: #16a34a; }
+        .section-badge.offline { background: rgba(239,68,68,0.12); color: #dc2626; }
+
+        .standings-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .standings-title {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .standings-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .standings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .standings-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            transition: all var(--transition);
+        }
+
+        .standings-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .standings-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: background var(--transition);
+        }
+
+        .standings-item:hover { background: var(--bg-card-hover); border-radius: var(--radius-sm); padding: 12px 8px; margin: 0 -8px; }
+        .standings-item:last-child { border-bottom: none; }
+
+        .standings-pos {
+            width: 26px;
+            height: 26px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .standings-pos.p1 { background: rgba(250,204,21,0.15); color: #ca8a04; }
+        .standings-pos.p2 { background: rgba(156,163,175,0.15); color: #6b7280; }
+        .standings-pos.p3 { background: rgba(234,88,12,0.15); color: #c2410c; }
+        .standings-pos.normal { background: var(--bg-primary); color: var(--text-tertiary); }
+
+        .standings-info { flex: 1; }
+        .standings-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+        .standings-team { font-size: 11px; color: var(--text-tertiary); }
+        .standings-points { font-size: 15px; font-weight: 700; color: var(--accent); }
+
+        .loading-placeholder {
+            height: 24px;
+            background: var(--bg-primary);
+            border-radius: 6px;
+            margin: 8px 0;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .update-status {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .update-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-tertiary);
+        }
+        .update-dot.active { background: #22c55e; }
+        .update-dot.error { background: #ef4444; }
+
+        /* ── MOVED TO BOTTOM ── */
+        .footer-status {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        .api-info {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            font-size: 13px;
+        }
+        .api-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .api-info code {
+            background: var(--bg-secondary);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .keyboard-hint { text-align: center; padding: 8px; font-size: 12px; color: var(--text-tertiary); }
+        .keyboard-hint kbd {
+            display: inline-block; padding: 2px 6px; border-radius: 4px; background: var(--bg-card);
+            border: 1px solid var(--border-color); font-family: inherit; font-size: 11px; font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header-inner { padding: 0 16px; height: 56px; }
+            .logo-text { font-size: 17px; }
+            .logo-year { display: none; }
+            .content-spacer { height: 72px; }
+            .calendar-wrapper { padding: 0 16px; }
+            .month-title { font-size: 24px; }
+            .nav-btn { width: 38px; height: 38px; }
+            .events-container { padding: 0 16px 32px; }
+            .events-grid { grid-template-columns: 1fr; gap: 12px; }
+            .event-card-body { padding: 16px; }
+            .event-name { font-size: 16px; }
+            .month-dots { gap: 8px; }
+            .standings-section { padding: 0 16px 40px; }
+            .footer-status { padding: 0 16px 40px; }
+            .keyboard-hint { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .month-nav-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .nav-buttons { width: 100%; justify-content: flex-end; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+        ::selection { background: var(--accent); color: white; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <a href="#" class="logo">
+            <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="40" height="40" rx="10" fill="currentColor" opacity="0.08"/>
+                <path d="M10 8h5l-3 7h4l-4 11h4l-3 6h5" stroke="#e10600" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle cx="30" cy="10" r="2.5" fill="#e10600"/>
+                <circle cx="30" cy="20" r="2.5" fill="#e10600" opacity="0.6"/>
+                <circle cx="30" cy="30" r="2.5" fill="#e10600" opacity="0.3"/>
+            </svg>
+            <div><div class="logo-text"><span>F1</span> Calendar</div></div>
+            <span class="logo-year">2026</span>
+        </a>
+        <div class="header-actions">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="content-spacer"></div>
+
+<!-- 2026 Calendar -->
+<div class="section-header">
+    <h2 class="section-title">2026 Season</h2>
+    <span class="section-badge" id="liveBadge">Offline Mode</span>
+</div>
+<div class="calendar-wrapper" id="cal-2026">
+    <div class="month-nav-inner">
+        <h1 class="month-title"></h1>
+        <div class="nav-buttons">
+            <button class="nav-btn prev" aria-label="Previous month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="nav-btn next" aria-label="Next month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+    </div>
+    <div class="month-dots"></div>
+    <div class="events-container"><div class="events-grid"></div></div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- Standings Section -->
+<div class="standings-section">
+    <h2 class="standings-title">Championship Standings</h2>
+    <div class="standings-grid">
+        <div class="standings-card">
+            <h3>Drivers</h3>
+            <div id="drivers-list">
+                <div class="loading-placeholder"></div>
+                <div class="loading-placeholder"></div>
+                <div class="loading-placeholder"></div>
+            </div>
+        </div>
+        <div class="standings-card">
+            <h3>Constructors</h3>
+            <div id="constructors-list">
+                <div class="loading-placeholder"></div>
+                <div class="loading-placeholder"></div>
+                <div class="loading-placeholder"></div>
+            </div>
+        </div>
+    </div>
+    <div class="update-status">
+        <div class="update-dot" id="statusDot"></div>
+        <span id="statusText">Loading data...</span>
+    </div>
+</div>
+
+<div class="keyboard-hint">Use <kbd>←</kbd> <kbd>→</kbd> arrow keys to navigate months (focus required)</div>
+
+<!-- ── Live Data Status (MOVED TO BOTTOM) ── -->
+<div class="footer-status">
+    <div class="api-info">
+        <h4>📡 Live Data Status</h4>
+        <p id="apiStatus">Initializing...</p>
+        <p style="margin-top: 8px; font-size: 12px;">
+            <strong>Note:</strong> If opened as <code>file://</code>, browsers block API requests. 
+            Use a local server: <code>python3 -m http.server 8000</code> or <code>npx serve</code>
+        </p>
+    </div>
+</div>
+
+<script>
+    // ── Theme Toggle ──
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('f1-theme');
+    if (savedTheme) html.setAttribute('data-theme', savedTheme);
+    else if (window.matchMedia('(prefers-color-scheme: dark)').matches) html.setAttribute('data-theme', 'dark');
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('f1-theme', next);
+    });
+
+    // ── Configuration ──
+    const SEASON = "2026";
+    let eventsData = [];
+    let currentMonth = 3; // Default to April for 2026
+    let isLiveMode = false;
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const monthShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    // DOM Elements
+    const monthTitleEl = document.querySelector('#cal-2026 .month-title');
+    const eventsGridEl = document.querySelector('#cal-2026 .events-grid');
+    const monthDotsEl = document.querySelector('#cal-2026 .month-dots');
+    const driversListEl = document.getElementById('drivers-list');
+    const constructorsListEl = document.getElementById('constructors-list');
+    const statusTextEl = document.getElementById('statusText');
+    const statusDotEl = document.getElementById('statusDot');
+    const liveBadgeEl = document.getElementById('liveBadge');
+    const apiStatusEl = document.getElementById('apiStatus');
+
+    // ── Fallback Data (Always Available) ──
+    const fallbackEvents = [
+        { round: 1, name: "Australian Grand Prix", subtitle: "Albert Park Circuit", location: "Melbourne, Australia", date: "2026-03-08", time: "05:00 UTC", sprint: false, status: "completed", podium: [{pos:1,driver:"Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"George Russell",team:"Mercedes"},{pos:3,driver:"Charles Leclerc",team:"Ferrari"}] },
+        { round: 2, name: "Chinese Grand Prix", subtitle: "Shanghai International Circuit", location: "Shanghai, China", date: "2026-03-22", time: "07:00 UTC", sprint: true, status: "completed", podium: [{pos:1,driver:"Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"George Russell",team:"Mercedes"},{pos:3,driver:"Lewis Hamilton",team:"Ferrari"}] },
+        { round: 3, name: "Japanese Grand Prix", subtitle: "Suzuka International Racing Course", location: "Suzuka, Japan", date: "2026-04-05", time: "05:00 UTC", sprint: false, status: "completed", podium: [{pos:1,driver:"George Russell",team:"Mercedes"},{pos:2,driver:"Charles Leclerc",team:"Ferrari"},{pos:3,driver:"Lando Norris",team:"McLaren"}] },
+        { round: 4, name: "Bahrain Grand Prix", subtitle: "Bahrain International Circuit", location: "Sakhir, Bahrain", date: "2026-04-12", time: "15:00 UTC", sprint: false, status: "canceled", canceled: true },
+        { round: 5, name: "Saudi Arabian Grand Prix", subtitle: "Jeddah Corniche Circuit", location: "Jeddah, Saudi Arabia", date: "2026-04-19", time: "17:00 UTC", sprint: false, status: "canceled", canceled: true },
+        { round: 6, name: "Miami Grand Prix", subtitle: "Miami International Autodrome", location: "Miami, USA", date: "2026-05-03", time: "19:30 UTC", sprint: true, status: "upcoming" },
+        { round: 7, name: "Emilia Romagna Grand Prix", subtitle: "Autodromo Enzo e Dino Ferrari", location: "Imola, Italy", date: "2026-05-17", time: "13:00 UTC", sprint: false, status: "upcoming" },
+        { round: 8, name: "Monaco Grand Prix", subtitle: "Circuit de Monaco", location: "Monte Carlo, Monaco", date: "2026-05-24", time: "13:00 UTC", sprint: false, status: "upcoming" },
+        { round: 9, name: "Spanish Grand Prix", subtitle: "Circuit de Barcelona-Catalunya", location: "Montmeló, Spain", date: "2026-05-31", time: "13:00 UTC", sprint: false, status: "upcoming" },
+        { round: 10, name: "Canadian Grand Prix", subtitle: "Circuit Gilles Villeneuve", location: "Montreal, Canada", date: "2026-06-14", time: "18:00 UTC", sprint: false, status: "upcoming" },
+        { round: 11, name: "Austrian Grand Prix", subtitle: "Red Bull Ring", location: "Spielberg, Austria", date: "2026-06-28", time: "13:00 UTC", sprint: true, status: "upcoming" },
+        { round: 12, name: "British Grand Prix", subtitle: "Silverstone Circuit", location: "Silverstone, United Kingdom", date: "2026-07-05", time: "14:00 UTC", sprint: false, status: "upcoming" },
+        { round: 13, name: "Belgian Grand Prix", subtitle: "Circuit de Spa-Francorchamps", location: "Stavelot, Belgium", date: "2026-07-26", time: "13:00 UTC", sprint: false, status: "upcoming" },
+        { round: 14, name: "Hungarian Grand Prix", subtitle: "Hungaroring", location: "Budapest, Hungary", date: "2026-08-02", time: "13:00 UTC", sprint: false, status: "upcoming" },
+        { round: 15, name: "Dutch Grand Prix", subtitle: "Circuit Zandvoort", location: "Zandvoort, Netherlands", date: "2026-08-30", time: "13:00 UTC", sprint: false, status: "upcoming" },
+        { round: 16, name: "Italian Grand Prix", subtitle: "Autodromo Nazionale di Monza", location: "Monza, Italy", date: "2026-09-06", time: "13:00 UTC", sprint: false, status: "upcoming" },
+        { round: 17, name: "Azerbaijan Grand Prix", subtitle: "Baku City Circuit", location: "Baku, Azerbaijan", date: "2026-09-20", time: "11:00 UTC", sprint: false, status: "upcoming" },
+        { round: 18, name: "Singapore Grand Prix", subtitle: "Marina Bay Street Circuit", location: "Singapore", date: "2026-10-04", time: "12:00 UTC", sprint: false, status: "upcoming" },
+        { round: 19, name: "United States Grand Prix", subtitle: "Circuit of the Americas", location: "Austin, USA", date: "2026-10-18", time: "19:00 UTC", sprint: true, status: "upcoming" },
+        { round: 20, name: "Mexico City Grand Prix", subtitle: "Autódromo Hermanos Rodríguez", location: "Mexico City, Mexico", date: "2026-10-25", time: "20:00 UTC", sprint: false, status: "upcoming" },
+        { round: 21, name: "São Paulo Grand Prix", subtitle: "Autódromo José Carlos Pace", location: "São Paulo, Brazil", date: "2026-11-08", time: "17:00 UTC", sprint: true, status: "upcoming" },
+        { round: 22, name: "Las Vegas Grand Prix", subtitle: "Las Vegas Strip Circuit", location: "Las Vegas, USA", date: "2026-11-21", time: "06:00 UTC", sprint: false, status: "upcoming" },
+        { round: 23, name: "Qatar Grand Prix", subtitle: "Lusail International Circuit", location: "Lusail, Qatar", date: "2026-11-29", time: "14:00 UTC", sprint: true, status: "upcoming" },
+        { round: 24, name: "Abu Dhabi Grand Prix", subtitle: "Yas Marina Circuit", location: "Abu Dhabi, UAE", date: "2026-12-06", time: "13:00 UTC", sprint: false, status: "upcoming" }
+    ];
+
+    const fallbackDrivers = [
+        { position: 1, Driver: { givenName: "Kimi", familyName: "Antonelli" }, Constructor: { name: "Mercedes" }, points: 72 },
+        { position: 2, Driver: { givenName: "George", familyName: "Russell" }, Constructor: { name: "Mercedes" }, points: 63 },
+        { position: 3, Driver: { givenName: "Charles", familyName: "Leclerc" }, Constructor: { name: "Ferrari" }, points: 49 },
+        { position: 4, Driver: { givenName: "Lewis", familyName: "Hamilton" }, Constructor: { name: "Ferrari" }, points: 41 },
+        { position: 5, Driver: { givenName: "Lando", familyName: "Norris" }, Constructor: { name: "McLaren" }, points: 25 }
+    ];
+
+    const fallbackConstructors = [
+        { position: 1, Constructor: { name: "Mercedes" }, points: 135 },
+        { position: 2, Constructor: { name: "Ferrari" }, points: 90 },
+        { position: 3, Constructor: { name: "McLaren" }, points: 46 },
+        { position: 4, Constructor: { name: "Haas F1 Team" }, points: 18 },
+        { position: 5, Constructor: { name: "Alpine" }, points: 16 }
+    ];
+
+    // ── Try Live API (with CORS check) ──
+    async function tryLiveAPI() {
+        const apiStatus = document.getElementById('apiStatus');
+        
+        // Check if running via HTTP (not file://)
+        if (window.location.protocol === 'file:') {
+            apiStatus.innerHTML = '⚠️ <strong>CORS Restriction:</strong> Running as local file. APIs are blocked by browser security.<br><br><strong>Solution:</strong> Run a local server:<br><code>python3 -m http.server 8000</code><br>Then open <code>http://localhost:8000</code>';
+            loadFallbackData();
+            return;
+        }
+
+        apiStatus.textContent = '🔄 Attempting to fetch live data from F1 API...';
+        
+        try {
+            const endpoints = [
+                `https://api.jolpi.ca/ergast/f1/${SEASON}.json`,
+                `https://ergast.com/api/f1/${SEASON}.json`
+            ];
+
+            let success = false;
+            for (const endpoint of endpoints) {
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000);
+                    
+                    const res = await fetch(endpoint, { signal: controller.signal });
+                    clearTimeout(timeoutId);
+                    
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.MRData?.RaceTable?.Races) {
+                            success = true;
+                            parseLiveSchedule(data.MRData.RaceTable.Races);
+                            break;
+                        }
+                    }
+                } catch (e) {
+                    console.log(`Endpoint failed: ${endpoint}`, e);
+                    continue;
+                }
+            }
+
+            if (success) {
+                isLiveMode = true;
+                liveBadgeEl.textContent = 'Live Data';
+                liveBadgeEl.className = 'section-badge live';
+                apiStatus.innerHTML = '✅ <strong>Live Mode Active</strong><br>Fetching real-time F1 data from API';
+                await fetchLiveStandings();
+            } else {
+                throw new Error('No API endpoint responded');
+            }
+        } catch (err) {
+            console.error('Live API failed:', err);
+            apiStatus.innerHTML = '⚠️ <strong>Offline Mode</strong><br>Using fallback data (API unavailable or CORS blocked)<br><br><strong>To enable live data:</strong><ol style="margin: 8px 0 0 20px;"><li>Run a local server: <code>python3 -m http.server 8000</code></li><li>Open <code>http://localhost:8000</code></li><li>Or wait for API to have 2026 data</li></ol>';
+            loadFallbackData();
+        }
+    }
+
+    async function parseLiveSchedule(races) {
+        eventsData = races.map((race, idx) => ({
+            round: parseInt(race.round),
+            name: race.raceName,
+            subtitle: race.Circuit.circuitName,
+            location: `${race.Circuit.Location.locality}, ${race.Circuit.Location.country}`,
+            date: race.date,
+            time: race.Time?.time?.slice(0, -1) + ' UTC' || 'TBA',
+            sprint: race.Sprints?.length > 0,
+            status: new Date(race.date + 'T18:00:00Z') < new Date() ? 'pending_result' : 'upcoming',
+            canceled: false,
+            podium: null
+        }));
+        renderCalendar();
+        
+        const completedRounds = eventsData.filter(r => r.status === 'pending_result');
+        if (completedRounds.length > 0) {
+            statusTextEl.textContent = 'Fetching race results...';
+            for (const race of completedRounds) {
+                try {
+                    const res = await fetch(`https://api.jolpi.ca/ergast/f1/${SEASON}/${race.round}/results.json`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const results = data.MRData.RaceTable.Races[0]?.Results || [];
+                        if (results.length > 0) {
+                            race.status = 'completed';
+                            race.podium = results.slice(0, 3).map((r, i) => ({
+                                pos: i + 1,
+                                driver: `${r.Driver.givenName} ${r.Driver.familyName}`,
+                                team: r.Constructor.name
+                            }));
+                        }
+                    }
+                } catch (e) {
+                    console.log(`No results for R${race.round}`);
+                }
+            }
+            renderCalendar();
+        }
+    }
+
+    async function fetchLiveStandings() {
+        try {
+            const [driverRes, constRes] = await Promise.all([
+                fetch(`https://api.jolpi.ca/ergast/f1/${SEASON}/driverStandings.json`),
+                fetch(`https://api.jolpi.ca/ergast/f1/${SEASON}/constructorStandings.json`)
+            ]);
+            
+            if (driverRes.ok && constRes.ok) {
+                const [driversData, constructorsData] = await Promise.all([
+                    driverRes.json(),
+                    constRes.json()
+                ]);
+
+                renderStandings('drivers', driversData.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || []);
+                renderStandings('constructors', constructorsData.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings || []);
+                updateStatus('Live data synced', true);
+            } else {
+                throw new Error('Standings fetch failed');
+            }
+        } catch (err) {
+            console.error('Standings fetch failed:', err);
+            loadFallbackStandings();
+        }
+    }
+
+    function loadFallbackData() {
+        eventsData = JSON.parse(JSON.stringify(fallbackEvents));
+        renderCalendar();
+        loadFallbackStandings();
+        updateStatus('Offline mode - using fallback data', false);
+        liveBadgeEl.textContent = 'Offline Mode';
+        liveBadgeEl.className = 'section-badge offline';
+    }
+
+    function loadFallbackStandings() {
+        renderStandings('drivers', fallbackDrivers);
+        renderStandings('constructors', fallbackConstructors);
+    }
+
+    // ── Rendering Functions ──
+    function renderCalendar() {
+        monthTitleEl.textContent = `${monthNames[currentMonth]} 2026`;
+        
+        const monthEvents = eventsData.filter(e => {
+            const d = new Date(e.date);
+            return d.getMonth() === currentMonth;
+        });
+
+        document.querySelector('#cal-2026 .nav-btn.prev').classList.toggle('disabled', currentMonth === 0);
+        document.querySelector('#cal-2026 .nav-btn.next').classList.toggle('disabled', currentMonth === 11);
+
+        if (monthEvents.length === 0) {
+            eventsGridEl.innerHTML = `
+                <div class="no-events" style="grid-column: 1 / -1;">
+                    <div class="no-events-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                    <h3>No races this month</h3>
+                    <p>The F1 paddock is taking a break. Use the arrows to find upcoming races.</p>
+                </div>`;
+        } else {
+            eventsGridEl.innerHTML = monthEvents.map(e => {
+                const isCompleted = e.status === 'completed';
+                const isCanceled = e.canceled;
+                const statusClass = isCompleted ? 'completed' : isCanceled ? 'canceled' : 'upcoming';
+                const statusText = isCompleted ? 'Finished' : isCanceled ? 'Canceled' : 'Upcoming';
+
+                let podiumHtml = '';
+                if (isCompleted && e.podium) {
+                    podiumHtml = `
+                        <div class="podium-section">
+                            <div class="podium-title">Podium</div>
+                            ${e.podium.map(p => `
+                                <div class="podium-item">
+                                    <div class="podium-pos ${p.pos === 1 ? 'gold' : p.pos === 2 ? 'silver' : 'bronze'}">${p.pos}</div>
+                                    <div>
+                                        <div class="podium-driver">${p.driver}</div>
+                                        <div class="podium-team">${p.team}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>`;
+                }
+
+                const canceledReason = isCanceled ? `<div class="event-detail"><div class="event-detail-content"><span class="event-detail-label">Status</span><span class="event-detail-value">Race canceled</span></div></div>` : '';
+
+                return `
+                    <div class="event-card ${isCanceled ? 'canceled-race' : ''} ${e.sprint ? 'sprint-weekend' : ''}">
+                        <div class="event-card-accent"></div>
+                        <div class="event-card-body">
+                            <div class="event-card-header">
+                                <span class="event-round">Round ${e.round}</span>
+                                <div class="badge-group">
+                                    ${e.sprint ? '<span class="event-sprint-badge">⚡ Sprint</span>' : ''}
+                                    <span class="status-badge ${statusClass}">${statusText}</span>
+                                </div>
+                            </div>
+                            <div class="event-name">${e.name}</div>
+                            <div class="event-subtitle">${e.subtitle}</div>
+                            <div class="event-details">
+                                <div class="event-detail">
+                                    <div class="event-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                                    <div class="event-detail-content"><span class="event-detail-label">Location</span><span class="event-detail-value">${e.location}</span></div>
+                                </div>
+                                <div class="event-detail">
+                                    <div class="event-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                                    <div class="event-detail-content"><span class="event-detail-label">Race Date</span><span class="event-detail-value">${formatDate(e.date)}</span></div>
+                                </div>
+                                ${!isCanceled ? `
+                                <div class="event-detail">
+                                    <div class="event-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                                    <div class="event-detail-content"><span class="event-detail-label">Race Time</span><span class="event-detail-value">${e.time}</span></div>
+                                </div>` : canceledReason}
+                            </div>
+                            ${podiumHtml}
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+        renderDots();
+    }
+
+    function renderDots() {
+        monthDotsEl.innerHTML = '';
+        const monthsWithEvents = [...new Set(eventsData.map(e => new Date(e.date).getMonth()))];
+        for (let i = 0; i < 12; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'month-dot';
+            if (i === currentMonth) dot.classList.add('active');
+            if (monthsWithEvents.includes(i)) dot.classList.add('has-events');
+            const label = document.createElement('span');
+            label.className = 'month-dot-label';
+            label.textContent = monthShort[i];
+            dot.appendChild(label);
+            dot.addEventListener('click', () => { currentMonth = i; renderCalendar(); });
+            monthDotsEl.appendChild(dot);
+        }
+    }
+
+    function renderStandings(type, data) {
+        const container = type === 'drivers' ? driversListEl : constructorsListEl;
+        if (!data || data.length === 0) {
+            container.innerHTML = '<p style="color: var(--text-tertiary); text-align: center; padding: 20px;">No standings data available</p>';
+            return;
+        }
+        container.innerHTML = data.map(d => `
+            <div class="standings-item">
+                <div class="standings-pos ${d.position <= 3 ? `p${d.position}` : 'normal'}">${d.position}</div>
+                <div class="standings-info">
+                    <div class="standings-name">${d.Driver?.givenName} ${d.Driver?.familyName || d.Constructor?.name}</div>
+                    ${type === 'drivers' && d.Constructor ? `<div class="standings-team">${d.Constructor.name}</div>` : ''}
+                </div>
+                <div class="standings-points">${d.points} PTS</div>
+            </div>
+        `).join('');
+    }
+
+    function formatDate(dateStr) {
+        const d = new Date(dateStr + 'T00:00:00');
+        return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    }
+
+    function updateStatus(text, success = false) {
+        statusTextEl.textContent = text;
+        statusDotEl.className = 'update-dot' + (success ? ' active' : '');
+    }
+
+    // ── Navigation ──
+    document.querySelector('#cal-2026 .nav-btn.prev').addEventListener('click', () => {
+        if (currentMonth > 0) { currentMonth--; renderCalendar(); }
+    });
+    document.querySelector('#cal-2026 .nav-btn.next').addEventListener('click', () => {
+        if (currentMonth < 11) { currentMonth++; renderCalendar(); }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentMonth > 0) { currentMonth--; renderCalendar(); }
+        else if (e.key === 'ArrowRight' && currentMonth < 11) { currentMonth++; renderCalendar(); }
+    });
+
+    // ── Initialize ──
+    tryLiveAPI();
+</script>
+
+</body>
+</html>
