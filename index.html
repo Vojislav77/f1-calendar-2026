@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Calendar 2026</title>
+    <meta name="description" content="2026 Formula 1 season calendar with live standings, race countdown and results.">
+    <meta property="og:title" content="Calendar 2026">
+    <meta property="og:description" content="2026 Formula 1 season calendar with live standings, race countdown and results.">
+    <meta property="og:type" content="website">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e10600">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="F1 2026">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23e10600'/%3E%3Ctext x='50' y='70' font-family='Arial Black,Arial' font-weight='900' font-size='52' fill='white' text-anchor='middle'%3EF1%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect width='100' height='60' rx='6' fill='%23e10600'/%3E%3Ctext x='50' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='38' fill='white' text-anchor='middle'%3EF1%3C/text%3E%3C/svg%3E">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        :root {
+            --bg-primary:#f5f5f7;--bg-secondary:#ffffff;--bg-card:#ffffff;--bg-card-hover:#fafafa;
+            --text-primary:#1d1d1f;--text-secondary:#6e6e73;--text-tertiary:#86868b;
+            --border-color:rgba(0,0,0,0.08);--border-hover:rgba(0,0,0,0.15);
+            --accent:#e10600;--accent-light:#ff3b30;--accent-bg:rgba(225,6,0,0.08);--accent-bg-hover:rgba(225,6,0,0.14);
+            --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md:0 4px 14px rgba(0,0,0,0.08),0 2px 6px rgba(0,0,0,0.04);
+            --shadow-lg:0 10px 30px rgba(0,0,0,0.1),0 4px 12px rgba(0,0,0,0.05);
+            --shadow-card:0 2px 8px rgba(0,0,0,0.06);
+            --glass-bg:rgba(255,255,255,0.72);--glass-border:rgba(255,255,255,0.3);
+            --sprint-bg:rgba(140,80,220,0.08);--sprint-text:#7c3aed;--sprint-border:rgba(140,80,220,0.2);
+            --radius-sm:10px;--radius-md:14px;--radius-lg:20px;--radius-xl:28px;
+            --transition:0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        [data-theme="dark"] {
+            --bg-primary:#0d0d12;--bg-secondary:#16161d;--bg-card:#1c1c25;--bg-card-hover:#22222d;
+            --text-primary:#f5f5f7;--text-secondary:#a1a1a6;--text-tertiary:#6e6e73;
+            --border-color:rgba(255,255,255,0.08);--border-hover:rgba(255,255,255,0.15);
+            --accent-bg:rgba(225,6,0,0.12);--accent-bg-hover:rgba(225,6,0,0.2);
+            --shadow-sm:0 1px 3px rgba(0,0,0,0.2);--shadow-md:0 4px 14px rgba(0,0,0,0.3);
+            --shadow-lg:0 10px 30px rgba(0,0,0,0.4);--shadow-card:0 2px 8px rgba(0,0,0,0.2);
+            --glass-bg:rgba(22,22,29,0.8);--glass-border:rgba(255,255,255,0.06);
+            --sprint-bg:rgba(140,80,220,0.12);--sprint-text:#a78bfa;--sprint-border:rgba(140,80,220,0.25);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+        body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;transition:background var(--transition),color var(--transition);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+        .header{position:sticky;top:0;z-index:100;background:var(--glass-bg);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border-color);transition:background var(--transition),border-color var(--transition);}
+        .header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+        .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text-primary);}
+        .logo-icon{width:50px;height:auto;object-fit:contain;}
+        .logo-text{font-size:20px;font-weight:800;letter-spacing:-0.5px;}
+        .logo-text span{color:var(--accent);}
+        .logo-year{font-size:13px;font-weight:500;color:var(--text-tertiary);margin-left:-4px;}
+        .header-actions{display:flex;align-items:center;gap:8px;}
+        .theme-toggle{width:44px;height:44px;border-radius:50%;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--transition);}
+        .theme-toggle:hover{border-color:var(--border-hover);color:var(--text-primary);transform:scale(1.05);}
+        .theme-toggle svg{width:20px;height:20px;transition:transform var(--transition);}
+        .theme-toggle:active svg{transform:rotate(30deg);}
+        .sun-icon{display:none;}.moon-icon{display:block;}
+        [data-theme="dark"] .sun-icon{display:block;}[data-theme="dark"] .moon-icon{display:none;}
+        .sprint-filter-btn{height:36px;padding:0 14px;border-radius:20px;border:1px solid var(--sprint-border);background:transparent;color:var(--sprint-text);cursor:pointer;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;font-family:inherit;transition:all var(--transition);}
+        .sprint-filter-btn:hover{background:var(--sprint-bg);}
+        .sprint-filter-btn.active{background:var(--sprint-bg);border-color:var(--sprint-text);}
+        .sprint-filter-btn svg{width:14px;height:14px;}
+        .content-spacer{height:40px;background:transparent;}
+        .countdown-container{max-width:1200px;margin:0 auto 24px;padding:0 24px;}
+        .countdown-banner{background:var(--bg-card);color:var(--text-primary);padding:16px 24px;border-radius:var(--radius-lg);text-align:center;font-weight:600;font-size:15px;border:1px solid var(--border-color);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+        .countdown-banner strong{color:var(--accent);}
+        .countdown-time-segment{background:var(--accent-bg);color:var(--accent);padding:4px 8px;border-radius:6px;font-variant-numeric:tabular-nums;font-weight:700;}
+        .calendar-wrapper{max-width:1200px;margin:0 auto;padding:0 24px;}
+        .month-nav-inner{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+        .month-title{font-size:32px;font-weight:800;letter-spacing:-1px;transition:opacity var(--transition);}
+        .nav-buttons{display:flex;gap:8px;}
+        .nav-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--transition);}
+        .nav-btn:hover{border-color:var(--border-hover);color:var(--text-primary);background:var(--bg-card-hover);}
+        .nav-btn:active{transform:scale(0.92);}
+        .nav-btn svg{width:18px;height:18px;}
+        .nav-btn.disabled{opacity:0.3;pointer-events:none;}
+        .month-dots{display:flex;align-items:flex-end;justify-content:center;gap:6px;margin-bottom:32px;flex-wrap:wrap;padding:0 12px;}
+        .month-dot-wrapper{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+        .month-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--border-color);background:transparent;transition:all var(--transition);position:relative;}
+        .month-dot.active{background:var(--accent);border-color:var(--accent);transform:scale(1.2);}
+        .month-dot.has-events::after{content:'';position:absolute;top:-3px;right:-3px;width:5px;height:5px;border-radius:50%;background:var(--accent);}
+        .month-dot.has-events.active::after{display:none;}
+        .month-dot-wrapper:hover .month-dot{border-color:var(--accent);transform:scale(1.15);}
+        .month-dot.active+.month-dot-label{color:var(--accent);}
+        .month-dot-label{font-size:9px;font-weight:600;color:var(--text-tertiary);white-space:nowrap;text-transform:uppercase;letter-spacing:0.5px;display:none;}
+        .events-container{max-width:1200px;margin:0 auto;padding:0 24px 48px;}
+        .events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;animation:fadeInUp 0.4s ease-out;}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        .event-card{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-color);overflow:hidden;transition:all var(--transition);cursor:default;position:relative;}
+        .event-card:hover{border-color:var(--border-hover);box-shadow:var(--shadow-md);transform:translateY(-2px);}
+        .event-card.sprint-weekend{border-color:var(--sprint-border);}
+        .event-card.sprint-weekend:hover{border-color:var(--sprint-text);}
+        .event-card.canceled-race{opacity:0.65;pointer-events:none;}
+        .event-card.canceled-race .event-card-accent{background:var(--text-tertiary);}
+        .event-card-accent{height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-light));}
+        .event-card.sprint-weekend .event-card-accent{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+        .event-card-body{padding:20px;}
+        .event-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:8px;flex-wrap:wrap;}
+        .event-round{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;flex-shrink:0;}
+        .event-card.sprint-weekend .event-round{color:var(--sprint-text);}
+        .badge-group{display:flex;gap:6px;align-items:center;flex-shrink:0;}
+        .event-sprint-badge,.status-badge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:0.8px;}
+        .event-sprint-badge{color:var(--sprint-text);background:var(--sprint-bg);}
+        .status-badge.completed{background:rgba(34,197,94,0.12);color:#16a34a;}
+        .status-badge.upcoming{background:rgba(59,130,246,0.12);color:#2563eb;}
+        .status-badge.canceled{background:rgba(239,68,68,0.12);color:#dc2626;}
+        .event-name{font-size:18px;font-weight:700;letter-spacing:-0.3px;margin-bottom:4px;line-height:1.3;}
+        .event-subtitle{font-size:13px;color:var(--text-tertiary);font-weight:500;}
+        .event-details{display:flex;flex-direction:column;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border-color);}
+        .event-detail{display:flex;align-items:center;gap:10px;}
+        .event-detail-icon{width:32px;height:32px;border-radius:var(--radius-sm);background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);}
+        .event-card.sprint-weekend .event-detail-icon{background:var(--sprint-bg);color:var(--sprint-text);}
+        .event-detail-icon svg{width:16px;height:16px;}
+        .event-detail-content{display:flex;flex-direction:column;}
+        .event-detail-label{font-size:10px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.8px;}
+        .event-detail-value{font-size:14px;font-weight:600;color:var(--text-primary);}
+        .event-detail-note{font-size:10px;color:var(--text-tertiary);margin-top:1px;}
+        .event-card-footer{padding:12px 20px;border-top:1px solid var(--border-color);display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+        .cal-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-decoration:none;border:1px solid var(--border-color);background:var(--bg-primary);color:var(--text-secondary);transition:all var(--transition);}
+        .cal-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);}
+        .cal-btn svg{width:13px;height:13px;flex-shrink:0;}
+        .share-btn{margin-left:auto;border-color:var(--border-color);background:transparent;}
+        .podium-section{margin-top:16px;padding-top:16px;border-top:1px solid var(--border-color);}
+        .podium-title{font-size:10px;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;}
+        .podium-item{display:flex;align-items:center;gap:10px;padding:6px 0;}
+        .podium-pos{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+        .podium-pos.gold{background:rgba(250,204,21,0.15);color:#ca8a04;}
+        .podium-pos.silver{background:rgba(156,163,175,0.15);color:#6b7280;}
+        .podium-pos.bronze{background:rgba(234,88,12,0.15);color:#c2410c;}
+        .podium-driver{font-size:13px;font-weight:600;}
+        .podium-team{font-size:11px;color:var(--text-tertiary);}
+        .no-events{text-align:center;padding:80px 24px;animation:fadeInUp 0.4s ease-out;}
+        .no-events-icon{width:80px;height:80px;margin:0 auto 20px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;}
+        .no-events-icon svg{width:36px;height:36px;color:var(--accent);}
+        .no-events h3{font-size:20px;font-weight:700;margin-bottom:8px;}
+        .no-events p{color:var(--text-tertiary);font-size:14px;}
+        .section-divider{max-width:1200px;margin:48px auto;height:1px;background:var(--border-color);}
+        .section-header{max-width:1200px;margin:0 auto;padding:0 24px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+        .section-title{font-size:24px;font-weight:800;letter-spacing:-0.5px;}
+        .section-badge{font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-bg);padding:6px 12px;border-radius:8px;letter-spacing:0.5px;}
+        .section-badge.live{background:rgba(34,197,94,0.12);color:#16a34a;}
+        .section-badge.offline{background:rgba(239,68,68,0.12);color:#dc2626;}
+        .standings-section{max-width:1200px;margin:0 auto;padding:0 24px 60px;animation:fadeInUp 0.5s ease-out;}
+        .standings-title{font-size:24px;font-weight:800;letter-spacing:-0.5px;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+        .standings-title::after{content:'';flex:1;height:1px;background:var(--border-color);}
+        .standings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+        .standings-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:20px;transition:all var(--transition);}
+        .standings-card h3{font-size:14px;font-weight:700;margin-bottom:16px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1.2px;}
+        .standings-item{display:flex;align-items:center;padding:12px 0;border-bottom:1px solid var(--border-color);transition:background var(--transition);}
+        .standings-item:hover{background:var(--bg-card-hover);border-radius:var(--radius-sm);padding:12px 8px;margin:0 -8px;}
+        .standings-item:last-child{border-bottom:none;}
+        .standings-pos{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-right:12px;flex-shrink:0;}
+        .standings-pos.p1{background:rgba(250,204,21,0.15);color:#ca8a04;}
+        .standings-pos.p2{background:rgba(156,163,175,0.15);color:#6b7280;}
+        .standings-pos.p3{background:rgba(234,88,12,0.15);color:#c2410c;}
+        .standings-pos.normal{background:var(--bg-primary);color:var(--text-tertiary);}
+        .standings-info{flex:1;}.standings-name{font-size:14px;font-weight:600;margin-bottom:2px;}
+        .standings-team{font-size:11px;color:var(--text-tertiary);}
+        .standings-points{font-size:15px;font-weight:700;color:var(--accent);}
+        .loading-placeholder{height:24px;background:var(--bg-primary);border-radius:6px;margin:8px 0;animation:pulse 1.5s infinite;}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+        .update-status{font-size:12px;color:var(--text-tertiary);margin-top:8px;display:flex;align-items:center;gap:6px;}
+        .update-dot{width:6px;height:6px;border-radius:50%;background:var(--text-tertiary);}
+        .update-dot.active{background:#22c55e;}.update-dot.error{background:#ef4444;}
+        .keyboard-hint{text-align:center;padding:8px 24px 24px;font-size:12px;color:var(--text-tertiary);}
+        .keyboard-hint kbd{display:inline-block;padding:2px 6px;border-radius:4px;background:var(--bg-card);border:1px solid var(--border-color);font-family:inherit;font-size:11px;font-weight:600;}
+        .debug-panel{max-width:1200px;margin:0 auto;padding:0 24px 60px;display:none;}
+        .debug-panel.visible{display:block;animation:fadeInUp 0.3s ease-out;}
+        .api-info{background:var(--accent-bg);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:20px;font-size:13px;}
+        .api-info h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--text-primary);}
+        .api-info code{background:var(--bg-secondary);padding:3px 6px;border-radius:4px;font-family:monospace;font-size:12px;}
+        .debug-hint{text-align:center;padding:0 24px 32px;font-size:11px;color:var(--text-tertiary);opacity:0.5;}
+        /* Toast */
+        .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text-primary);color:var(--bg-primary);padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;z-index:9999;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;white-space:nowrap;}
+        .toast.show{transform:translateX(-50%) translateY(0);}
+        /* PWA install banner */
+        .pwa-banner{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border-color);padding:16px 24px;z-index:500;align-items:center;gap:16px;box-shadow:0 -4px 20px rgba(0,0,0,0.1);}
+        .pwa-banner.show{display:flex;}
+        .pwa-banner-text{flex:1;font-size:14px;font-weight:600;}
+        .pwa-banner-sub{font-size:12px;color:var(--text-tertiary);font-weight:400;display:block;margin-top:2px;}
+        .pwa-install-btn{padding:10px 20px;border-radius:10px;background:var(--accent);color:white;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0;}
+        .pwa-dismiss-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border-color);background:transparent;color:var(--text-tertiary);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+        @media(max-width:768px){
+            .header-inner{padding:0 16px;height:56px;}.logo-text{font-size:17px;}.logo-year{display:none;}
+            .content-spacer{height:32px;}.calendar-wrapper{padding:0 16px;}.month-title{font-size:24px;}
+            .nav-btn{width:38px;height:38px;}.events-container{padding:0 16px 32px;}
+            .events-grid{grid-template-columns:1fr;gap:12px;}.event-card-body{padding:16px;}
+            .event-name{font-size:16px;}.month-dots{gap:4px;padding-bottom:4px;}
+            .month-dot-label{display:block;}
+            .standings-section{padding:0 16px 40px;}.debug-panel{padding:0 16px 40px;}
+            .keyboard-hint{display:none;}.countdown-container{padding:0 16px;}
+            .sprint-filter-btn .btn-text{display:none;}
+        }
+        @media(max-width:480px){
+            .month-nav-inner{flex-direction:column;align-items:flex-start;gap:12px;}
+            .nav-buttons{width:100%;justify-content:flex-end;}
+        }
+        ::-webkit-scrollbar{width:8px;}::-webkit-scrollbar-track{background:transparent;}
+        ::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:4px;}
+        ::-webkit-scrollbar-thumb:hover{background:var(--border-hover);}
+        ::selection{background:var(--accent);color:white;}
+    </style>
+</head>
+<body>
+
+<h1 class="visually-hidden">F1 Calendar 2026</h1>
+
+<header class="header">
+    <div class="header-inner">
+        <a href="#" class="logo" aria-label="Calendar 2026 home">
+            <svg class="logo-icon" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="100" height="60" rx="6" fill="#e10600"/>
+                <text x="50" y="44" font-family="Arial Black,Arial" font-weight="900" font-size="38" fill="white" text-anchor="middle">F1</text>
+            </svg>
+            <div><div class="logo-text">Calendar</div></div>
+            <span class="logo-year">2026</span>
+        </a>
+        <div class="header-actions">
+            <button class="sprint-filter-btn" id="sprintFilterBtn" aria-pressed="false" title="Show only Sprint weekends">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span class="btn-text">Sprint only</span>
+            </button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- PWA install banner -->
+<div class="pwa-banner" id="pwaBanner">
+    <div class="pwa-banner-text">
+        Install F1 Calendar
+        <span class="pwa-banner-sub">Add to home screen for offline access</span>
+    </div>
+    <button class="pwa-install-btn" id="pwaInstallBtn">Install</button>
+    <button class="pwa-dismiss-btn" id="pwaDismissBtn" aria-label="Dismiss">×</button>
+</div>
+
+<div class="content-spacer"></div>
+
+<div class="countdown-container" id="countdownContainer" style="display:none;">
+    <div class="countdown-banner" id="countdownBanner"></div>
+</div>
+
+<div class="section-header">
+    <h2 class="section-title">2026 Season</h2>
+    <span class="section-badge" id="liveBadge">Offline Mode</span>
+</div>
+<div class="calendar-wrapper" id="cal-2026">
+    <div class="month-nav-inner">
+        <h2 class="month-title" aria-live="polite"></h2>
+        <div class="nav-buttons">
+            <button class="nav-btn prev" aria-label="Previous month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="nav-btn next" aria-label="Next month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+    </div>
+    <div class="month-dots" id="monthDots"></div>
+    <div class="events-container"><div class="events-grid" id="eventsGrid"></div></div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="standings-section">
+    <h2 class="standings-title">Championship Standings</h2>
+    <div class="standings-grid">
+        <div class="standings-card"><h3>Drivers</h3><div id="drivers-list"><div class="loading-placeholder"></div><div class="loading-placeholder"></div><div class="loading-placeholder"></div></div></div>
+        <div class="standings-card"><h3>Constructors</h3><div id="constructors-list"><div class="loading-placeholder"></div><div class="loading-placeholder"></div><div class="loading-placeholder"></div></div></div>
+    </div>
+    <div class="update-status"><div class="update-dot" id="statusDot"></div><span id="statusText">Loading data...</span></div>
+</div>
+
+<div class="keyboard-hint">Use <kbd>←</kbd> <kbd>→</kbd> arrow keys to navigate months &nbsp;·&nbsp; <kbd>Shift</kbd>+<kbd>D</kbd> for debug info</div>
+
+<div class="debug-panel" id="debugPanel">
+    <div class="api-info">
+        <h4>📡 Live Data Status</h4>
+        <p id="apiStatus">Initializing...</p>
+        <p style="margin-top:8px;font-size:12px;"><strong>Note:</strong> If opened as <code>file://</code>, browsers block API requests. Use a local server: <code>python3 -m http.server 8000</code> or <code>npx serve</code></p>
+    </div>
+</div>
+<p class="debug-hint">Press <kbd>Shift</kbd>+<kbd>D</kbd> for debug info</p>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    // ── Theme ──
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('f1-theme');
+    if (savedTheme) html.setAttribute('data-theme', savedTheme);
+    else if (window.matchMedia('(prefers-color-scheme: dark)').matches) html.setAttribute('data-theme', 'dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('f1-theme', next);
+    });
+
+    // ── PWA Service Worker registration ──
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(e => console.log('SW reg failed:', e));
+        });
+    }
+    let deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (!localStorage.getItem('pwa-dismissed')) {
+            document.getElementById('pwaBanner').classList.add('show');
+        }
+    });
+    document.getElementById('pwaInstallBtn').addEventListener('click', () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+            deferredPrompt = null;
+            document.getElementById('pwaBanner').classList.remove('show');
+        });
+    });
+    document.getElementById('pwaDismissBtn').addEventListener('click', () => {
+        document.getElementById('pwaBanner').classList.remove('show');
+        localStorage.setItem('pwa-dismissed', '1');
+    });
+
+    // ── Config ──
+    const SEASON = "2026";
+    let eventsData = [];
+    let currentMonth = new Date().getMonth();
+    let isLiveMode = false;
+    let countdownInterval = null;
+    let sprintFilterActive = false;
+
+    const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const monthShort  = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+    // ── Locale-aware date formatting (#3: use browser locale, not hardcoded en-US) ──
+    const userLocale = navigator.language || 'en-US';
+    function formatDate(dateStr) {
+        return new Date(dateStr + 'T00:00:00').toLocaleDateString(userLocale, { weekday: 'long', month: 'long', day: 'numeric' });
+    }
+    function formatLocalTime(dt) {
+        return dt.toLocaleTimeString(userLocale, { hour: '2-digit', minute: '2-digit' });
+    }
+    function formatLocalDate(dt) {
+        return dt.toLocaleDateString(userLocale, { weekday: 'long', month: 'long', day: 'numeric' });
+    }
+
+    // DOM
+    const monthTitleEl         = document.querySelector('#cal-2026 .month-title');
+    const eventsGridEl         = document.getElementById('eventsGrid');
+    const monthDotsEl          = document.getElementById('monthDots');
+    const driversListEl        = document.getElementById('drivers-list');
+    const constructorsListEl   = document.getElementById('constructors-list');
+    const statusTextEl         = document.getElementById('statusText');
+    const statusDotEl          = document.getElementById('statusDot');
+    const liveBadgeEl          = document.getElementById('liveBadge');
+    const apiStatusEl          = document.getElementById('apiStatus');
+    const countdownContainerEl = document.getElementById('countdownContainer');
+    const countdownBannerEl    = document.getElementById('countdownBanner');
+    const debugPanelEl         = document.getElementById('debugPanel');
+    const toastEl              = document.getElementById('toast');
+    const sprintFilterBtn      = document.getElementById('sprintFilterBtn');
+
+    // ── Sprint filter ──
+    sprintFilterBtn.addEventListener('click', () => {
+        sprintFilterActive = !sprintFilterActive;
+        sprintFilterBtn.classList.toggle('active', sprintFilterActive);
+        sprintFilterBtn.setAttribute('aria-pressed', sprintFilterActive);
+        renderCalendar();
+    });
+
+    // ── Keyboard shortcuts ──
+    document.addEventListener('keydown', e => {
+        const tag = document.activeElement.tagName;
+        const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+        if (e.key === 'D' && e.shiftKey) { debugPanelEl.classList.toggle('visible'); return; }
+        if (!isInput) {
+            if (e.key === 'ArrowLeft'  && currentMonth > 0)  { currentMonth--; renderCalendar(); }
+            if (e.key === 'ArrowRight' && currentMonth < 11) { currentMonth++; renderCalendar(); }
+        }
+    });
+
+    // ── Deep link via URL hash ──
+    function applyHashRound() {
+        const hash = window.location.hash;
+        if (!hash.startsWith('#round-')) return;
+        const round = parseInt(hash.replace('#round-', ''));
+        if (isNaN(round)) return;
+        const race = eventsData.find(e => e.round === round);
+        if (race) {
+            currentMonth = new Date(race.date + 'T00:00:00').getMonth();
+            renderCalendar();
+            requestAnimationFrame(() => {
+                const card = document.querySelector(`[data-round="${round}"]`);
+                if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+    }
+    window.addEventListener('hashchange', applyHashRound);
+
+    // ── Toast ──
+    function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        setTimeout(() => toastEl.classList.remove('show'), 2500);
+    }
+
+    // ── ICS export ──
+    function padICS(n) { return String(n).padStart(2, '0'); }
+    function toICSDate(d) {
+        return `${d.getUTCFullYear()}${padICS(d.getUTCMonth()+1)}${padICS(d.getUTCDate())}T${padICS(d.getUTCHours())}${padICS(d.getUTCMinutes())}00Z`;
+    }
+    function downloadICS(event) {
+        const start = event.rawDateTime || new Date(event.date + 'T' + event.time.replace(' UTC', ':00Z'));
+        const end   = new Date(start.getTime() + 2 * 3600000);
+        const ics = [
+            'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Calendar 2026//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+            'BEGIN:VEVENT',
+            `UID:f1-2026-round-${event.round}@f1calendar`,
+            `DTSTAMP:${toICSDate(new Date())}`,
+            `DTSTART:${toICSDate(start)}`,
+            `DTEND:${toICSDate(end)}`,
+            `SUMMARY:\uD83C\uDFCE ${event.name}`,
+            `DESCRIPTION:Round ${event.round} \u00B7 ${event.subtitle}${event.sprint ? ' \u00B7 Sprint Weekend \u26A1' : ''}`,
+            `LOCATION:${event.location}`,
+            'END:VEVENT','END:VCALENDAR'
+        ].join('\r\n');
+        const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        a.href = url; a.download = `F1-2026-Round${event.round}.ics`; a.click();
+        URL.revokeObjectURL(url);
+    }
+    function googleCalURL(event) {
+        const start = event.rawDateTime || new Date(event.date + 'T' + event.time.replace(' UTC', ':00Z'));
+        const end   = new Date(start.getTime() + 2 * 3600000);
+        const fmt   = d => d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+        return `https://calendar.google.com/calendar/render?action=TEMPLATE`
+            + `&text=${encodeURIComponent('\uD83C\uDFCE ' + event.name)}`
+            + `&dates=${fmt(start)}/${fmt(end)}`
+            + `&details=${encodeURIComponent('Round ' + event.round + ' \u00B7 ' + event.subtitle + (event.sprint ? ' \u00B7 Sprint Weekend \u26A1' : ''))}`
+            + `&location=${encodeURIComponent(event.location)}`;
+    }
+
+    // ── Fallback data — no hardcoded canceled, no hardcoded status ──
+    const fallbackEvents = [
+        { round:  1, name: "Australian Grand Prix",     subtitle: "Albert Park Circuit",                  location: "Melbourne, Australia",        date: "2026-03-08", time: "05:00 UTC", sprint: false, podium: [{pos:1,driver:"Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"George Russell",team:"Mercedes"},{pos:3,driver:"Charles Leclerc",team:"Ferrari"}] },
+        { round:  2, name: "Chinese Grand Prix",        subtitle: "Shanghai International Circuit",       location: "Shanghai, China",              date: "2026-03-22", time: "07:00 UTC", sprint: true,  podium: [{pos:1,driver:"Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"George Russell",team:"Mercedes"},{pos:3,driver:"Lewis Hamilton",team:"Ferrari"}] },
+        { round:  3, name: "Japanese Grand Prix",       subtitle: "Suzuka International Racing Course",   location: "Suzuka, Japan",                date: "2026-04-05", time: "05:00 UTC", sprint: false, podium: [{pos:1,driver:"George Russell",team:"Mercedes"},{pos:2,driver:"Charles Leclerc",team:"Ferrari"},{pos:3,driver:"Lando Norris",team:"McLaren"}] },
+        { round:  4, name: "Bahrain Grand Prix",        subtitle: "Bahrain International Circuit",        location: "Sakhir, Bahrain",              date: "2026-04-12", time: "15:00 UTC", sprint: false, podium: null },
+        { round:  5, name: "Saudi Arabian Grand Prix",  subtitle: "Jeddah Corniche Circuit",              location: "Jeddah, Saudi Arabia",         date: "2026-04-19", time: "17:00 UTC", sprint: false, podium: null },
+        { round:  6, name: "Miami Grand Prix",          subtitle: "Miami International Autodrome",        location: "Miami, USA",                   date: "2026-05-03", time: "19:30 UTC", sprint: true,  podium: null },
+        { round:  7, name: "Emilia Romagna Grand Prix", subtitle: "Autodromo Enzo e Dino Ferrari",        location: "Imola, Italy",                 date: "2026-05-17", time: "13:00 UTC", sprint: false, podium: null },
+        { round:  8, name: "Monaco Grand Prix",         subtitle: "Circuit de Monaco",                    location: "Monte Carlo, Monaco",          date: "2026-05-24", time: "13:00 UTC", sprint: false, podium: null },
+        { round:  9, name: "Spanish Grand Prix",        subtitle: "Circuit de Barcelona-Catalunya",       location: "Montmeló, Spain",         date: "2026-05-31", time: "13:00 UTC", sprint: false, podium: null },
+        { round: 10, name: "Canadian Grand Prix",       subtitle: "Circuit Gilles Villeneuve",            location: "Montreal, Canada",             date: "2026-06-14", time: "18:00 UTC", sprint: false, podium: null },
+        { round: 11, name: "Austrian Grand Prix",       subtitle: "Red Bull Ring",                        location: "Spielberg, Austria",           date: "2026-06-28", time: "13:00 UTC", sprint: true,  podium: null },
+        { round: 12, name: "British Grand Prix",        subtitle: "Silverstone Circuit",                  location: "Silverstone, United Kingdom",  date: "2026-07-05", time: "14:00 UTC", sprint: false, podium: null },
+        { round: 13, name: "Belgian Grand Prix",        subtitle: "Circuit de Spa-Francorchamps",         location: "Stavelot, Belgium",            date: "2026-07-26", time: "13:00 UTC", sprint: false, podium: null },
+        { round: 14, name: "Hungarian Grand Prix",      subtitle: "Hungaroring",                          location: "Budapest, Hungary",            date: "2026-08-02", time: "13:00 UTC", sprint: false, podium: null },
+        { round: 15, name: "Dutch Grand Prix",          subtitle: "Circuit Zandvoort",                    location: "Zandvoort, Netherlands",       date: "2026-08-30", time: "13:00 UTC", sprint: false, podium: null },
+        { round: 16, name: "Italian Grand Prix",        subtitle: "Autodromo Nazionale di Monza",         location: "Monza, Italy",                 date: "2026-09-06", time: "13:00 UTC", sprint: false, podium: null },
+        { round: 17, name: "Azerbaijan Grand Prix",     subtitle: "Baku City Circuit",                    location: "Baku, Azerbaijan",             date: "2026-09-20", time: "11:00 UTC", sprint: false, podium: null },
+        { round: 18, name: "Singapore Grand Prix",      subtitle: "Marina Bay Street Circuit",            location: "Singapore",                    date: "2026-10-04", time: "12:00 UTC", sprint: false, podium: null },
+        { round: 19, name: "United States Grand Prix",  subtitle: "Circuit of the Americas",              location: "Austin, USA",                  date: "2026-10-18", time: "19:00 UTC", sprint: true,  podium: null },
+        { round: 20, name: "Mexico City Grand Prix",    subtitle: "Autódromo Hermanos Rodríguez", location: "Mexico City, Mexico",        date: "2026-10-25", time: "20:00 UTC", sprint: false, podium: null },
+        { round: 21, name: "São Paulo Grand Prix", subtitle: "Autódromo José Carlos Pace", location: "São Paulo, Brazil",       date: "2026-11-08", time: "17:00 UTC", sprint: true,  podium: null },
+        { round: 22, name: "Las Vegas Grand Prix",      subtitle: "Las Vegas Strip Circuit",              location: "Las Vegas, USA",               date: "2026-11-21", time: "06:00 UTC", sprint: false, podium: null },
+        { round: 23, name: "Qatar Grand Prix",          subtitle: "Lusail International Circuit",         location: "Lusail, Qatar",                date: "2026-11-29", time: "14:00 UTC", sprint: true,  podium: null },
+        { round: 24, name: "Abu Dhabi Grand Prix",      subtitle: "Yas Marina Circuit",                   location: "Abu Dhabi, UAE",               date: "2026-12-06", time: "13:00 UTC", sprint: false, podium: null }
+    ];
+    const fallbackDrivers = [
+        { position:1, Driver:{givenName:"Kimi",   familyName:"Antonelli"}, Constructors:[{name:"Mercedes"}], points:72 },
+        { position:2, Driver:{givenName:"George", familyName:"Russell"},   Constructors:[{name:"Mercedes"}], points:63 },
+        { position:3, Driver:{givenName:"Charles",familyName:"Leclerc"},   Constructors:[{name:"Ferrari"}],  points:49 },
+        { position:4, Driver:{givenName:"Lewis",  familyName:"Hamilton"},  Constructors:[{name:"Ferrari"}],  points:41 },
+        { position:5, Driver:{givenName:"Lando",  familyName:"Norris"},    Constructors:[{name:"McLaren"}],  points:25 }
+    ];
+    const fallbackConstructors = [
+        { position:1, Constructor:{name:"Mercedes"},    points:135 },
+        { position:2, Constructor:{name:"Ferrari"},     points:90  },
+        { position:3, Constructor:{name:"McLaren"},     points:46  },
+        { position:4, Constructor:{name:"Haas F1 Team"},points:18  },
+        { position:5, Constructor:{name:"Alpine"},      points:16  }
+    ];
+
+    // ── API ──
+    async function tryLiveAPI() {
+        if (window.location.protocol === 'file:') {
+            apiStatusEl.innerHTML = '\u26A0\uFE0F <strong>CORS Restriction:</strong> Running as local file.<br><br><strong>Solution:</strong> <code>python3 -m http.server 8000</code>';
+            loadFallbackData(); return;
+        }
+        apiStatusEl.textContent = '\uD83D\uDD04 Attempting to fetch live data...';
+        try {
+            const endpoints = [
+                `https://api.jolpi.ca/ergast/f1/${SEASON}.json`,
+                `https://ergast.com/api/f1/${SEASON}.json`
+            ];
+            let success = false;
+            for (const endpoint of endpoints) {
+                try {
+                    const ctrl = new AbortController();
+                    const tid  = setTimeout(() => ctrl.abort(), 5000);
+                    const res  = await fetch(endpoint, { signal: ctrl.signal });
+                    clearTimeout(tid);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.MRData?.RaceTable?.Races) {
+                            success = true; parseLiveSchedule(data.MRData.RaceTable.Races); break;
+                        }
+                    }
+                } catch(e) { console.log('Endpoint failed:', endpoint, e); }
+            }
+            if (success) {
+                isLiveMode = true;
+                liveBadgeEl.textContent = 'Live Data'; liveBadgeEl.className = 'section-badge live';
+                apiStatusEl.innerHTML = '\u2705 <strong>Live Mode Active</strong>';
+                await fetchLiveStandings();
+            } else throw new Error('No endpoints responded');
+        } catch(err) {
+            apiStatusEl.innerHTML = '\u26A0\uFE0F <strong>Offline Mode</strong><br>Using fallback data';
+            loadFallbackData();
+        }
+    }
+
+    async function parseLiveSchedule(races) {
+        eventsData = races.map(race => {
+            let utcStr = `${race.date}T${race.Time?.time || '00:00:00Z'}`;
+            if (!utcStr.endsWith('Z')) utcStr += 'Z';
+            const dt = new Date(utcStr);
+            return {
+                round:       parseInt(race.round),
+                name:        race.raceName,
+                subtitle:    race.Circuit.circuitName,
+                location:    `${race.Circuit.Location.locality}, ${race.Circuit.Location.country}`,
+                date:        race.date,
+                displayDate: formatLocalDate(dt),
+                time:        race.Time?.time ? formatLocalTime(dt) : 'TBA',
+                sprint:      race.Sprints?.length > 0,
+                status:      dt < new Date() ? 'completed' : 'upcoming',
+                canceled:    false, podium: null, rawDateTime: dt
+            };
+        });
+        renderCalendar(); initCountdownTimer(); await fetchPastRacePodiums(); applyHashRound();
+    }
+
+    async function fetchPastRacePodiums() {
+        const done = eventsData.filter(e => e.status === 'completed');
+        if (!done.length) return;
+        statusTextEl.textContent = 'Syncing race results...';
+        for (const race of done) {
+            try {
+                const res = await fetch(`https://api.jolpi.ca/ergast/f1/${SEASON}/${race.round}/results.json`);
+                if (res.ok) {
+                    const data = await res.json();
+                    const results = data.MRData.RaceTable.Races[0]?.Results || [];
+                    if (results.length) race.podium = results.slice(0,3).map((r,i) => ({
+                        pos:i+1, driver:`${r.Driver.givenName} ${r.Driver.familyName}`, team:r.Constructor.name
+                    }));
+                }
+            } catch(e) { console.log('Podium fetch failed:', race.round); }
+        }
+        renderCalendar();
+    }
+
+    function initCountdownTimer() {
+        if (countdownInterval) clearInterval(countdownInterval);
+        const upcoming = eventsData.filter(e => e.status==='upcoming' && !e.canceled).sort((a,b)=>a.rawDateTime-b.rawDateTime);
+        if (!upcoming.length) { countdownContainerEl.style.display='none'; return; }
+        const next = upcoming[0];
+        countdownContainerEl.style.display = 'block';
+        function tick() {
+            const diff = next.rawDateTime - new Date();
+            if (diff <= 0) { countdownBannerEl.innerHTML=`\uD83C\uDFCE\uFE0F <strong>${next.name}</strong> is currently live!`; clearInterval(countdownInterval); return; }
+            const d=Math.floor(diff/86400000), h=Math.floor((diff%86400000)/3600000), m=Math.floor((diff%3600000)/60000), s=Math.floor((diff%60000)/1000);
+            countdownBannerEl.innerHTML=`Next Race: <strong>${next.name}</strong> in <span class="countdown-time-segment">${d}d</span><span class="countdown-time-segment">${h}h</span><span class="countdown-time-segment">${m}m</span><span class="countdown-time-segment">${s}s</span>`;
+        }
+        tick(); countdownInterval = setInterval(tick, 1000);
+    }
+
+    async function fetchLiveStandings() {
+        try {
+            const [dr, cr] = await Promise.all([
+                fetch(`https://api.jolpi.ca/ergast/f1/${SEASON}/driverStandings.json`),
+                fetch(`https://api.jolpi.ca/ergast/f1/${SEASON}/constructorStandings.json`)
+            ]);
+            if (dr.ok && cr.ok) {
+                const [dd,cd] = await Promise.all([dr.json(), cr.json()]);
+                renderStandings('drivers',      dd.MRData.StandingsTable.StandingsLists[0]?.DriverStandings      || []);
+                renderStandings('constructors', cd.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings || []);
+                updateStatus('Live data synced', true);
+            } else throw new Error('failed');
+        } catch(e) { loadFallbackStandings(); }
+    }
+
+    function loadFallbackData() {
+        const today = new Date();
+        eventsData = fallbackEvents.map(e => {
+            const dt = new Date(e.date + 'T' + e.time.replace(' UTC', ':00Z'));
+            return { ...e, status: dt < today ? 'completed' : 'upcoming', canceled: false, displayDate: formatDate(e.date), rawDateTime: dt };
+        });
+        renderCalendar(); initCountdownTimer(); loadFallbackStandings();
+        updateStatus('Offline mode \u2013 using fallback data', false);
+        liveBadgeEl.textContent = 'Offline Mode'; liveBadgeEl.className = 'section-badge offline';
+        applyHashRound();
+    }
+    function loadFallbackStandings() { renderStandings('drivers', fallbackDrivers); renderStandings('constructors', fallbackConstructors); }
+
+    // ── Render ──
+    function renderCalendar() {
+        monthTitleEl.textContent = `${monthNames[currentMonth]} 2026`;
+        let monthEvents = eventsData.filter(e => new Date(e.date).getMonth() === currentMonth);
+        if (sprintFilterActive) monthEvents = monthEvents.filter(e => e.sprint);
+        document.querySelector('#cal-2026 .nav-btn.prev').classList.toggle('disabled', currentMonth===0);
+        document.querySelector('#cal-2026 .nav-btn.next').classList.toggle('disabled', currentMonth===11);
+
+        if (!monthEvents.length) {
+            eventsGridEl.innerHTML = `<div class="no-events" style="grid-column:1/-1">
+                <div class="no-events-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                <h3>${sprintFilterActive ? 'No sprint weekends this month' : 'No races this month'}</h3>
+                <p>${sprintFilterActive ? 'Try turning off the Sprint filter or navigate to another month.' : 'The F1 paddock is taking a break. Use the arrows to find upcoming races.'}</p></div>`;
+        } else {
+            eventsGridEl.innerHTML = '';
+        monthEvents.forEach(e => {
+            try {
+                const isCompleted = e.status==='completed', isCanceled=e.canceled;
+                const statusClass = isCompleted?'completed':isCanceled?'canceled':'upcoming';
+                const statusText  = isCompleted?'Finished':isCanceled?'Canceled':'Upcoming';
+
+                let podiumHtml = '';
+                if (isCompleted && e.podium) {
+                    podiumHtml = `<div class="podium-section"><div class="podium-title">Podium</div>${e.podium.map(p=>`<div class="podium-item"><div class="podium-pos ${p.pos===1?'gold':p.pos===2?'silver':'bronze'}">${p.pos}</div><div><div class="podium-driver">${p.driver}</div><div class="podium-team">${p.team}</div></div></div>`).join('')}</div>`;
+                }
+
+                const circuitHtml = '';
+
+                const calBtns = !isCanceled ? `<div class="event-card-footer">
+                    <button class="cal-btn" onclick="downloadICS(eventsData.find(x=>x.round===${e.round}))" title="Download .ics">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>.ics
+                    </button>
+                    <a class="cal-btn" href="${googleCalURL(e)}" target="_blank" rel="noopener" title="Add to Google Calendar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Google Cal
+                    </a>
+                    <button class="cal-btn share-btn" onclick="shareRound(${e.round},'${e.name.replace(/'/g,"\\'")}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
+                    </button></div>` : '';
+
+                const el = document.createElement('div');
+                el.className = `event-card ${isCanceled?'canceled-race':''} ${e.sprint?'sprint-weekend':''}`.trim();
+                el.setAttribute('data-round', e.round);
+                el.innerHTML = `
+                    <div class="event-card-accent"></div>
+                    <div class="event-card-body">
+                        <div class="event-card-header">
+                            <span class="event-round">Round ${e.round}</span>
+                            <div class="badge-group">${e.sprint?'<span class="event-sprint-badge">\u26A1 Sprint</span>':''}<span class="status-badge ${statusClass}">${statusText}</span></div>
+                        </div>
+                        <div class="event-name">${e.name}</div>
+                        <div class="event-subtitle">${e.subtitle}</div>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <div class="event-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                                <div class="event-detail-content"><span class="event-detail-label">Location</span><span class="event-detail-value">${e.location}</span></div>
+                            </div>
+                            <div class="event-detail">
+                                <div class="event-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                                <div class="event-detail-content"><span class="event-detail-label">Race Date</span><span class="event-detail-value">${e.displayDate}</span></div>
+                            </div>
+                            ${!isCanceled ? `<div class="event-detail">
+                                <div class="event-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                                <div class="event-detail-content"><span class="event-detail-label">Race Time</span><span class="event-detail-value">${e.time||'TBA'}</span><span class="event-detail-note">Your local time</span></div>
+                            </div>` : `<div class="event-detail"><div class="event-detail-content"><span class="event-detail-label">Status</span><span class="event-detail-value">Race canceled</span></div></div>`}
+                        </div>
+                        ${podiumHtml}
+                        ${circuitHtml}
+                    </div>
+                    ${calBtns}`;
+                eventsGridEl.appendChild(el);
+            } catch(err) {
+                console.error('Card error:', e.name, err);
+            }
+        });
+        }
+        renderDots();
+    }
+
+    function renderDots() {
+        monthDotsEl.innerHTML = '';
+        const withEvents = [...new Set(eventsData.map(e => new Date(e.date).getMonth()))];
+        for (let i=0; i<12; i++) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'month-dot-wrapper';
+            wrapper.setAttribute('role','button'); wrapper.setAttribute('aria-label', monthNames[i]); wrapper.setAttribute('tabindex','0');
+            const dot = document.createElement('div');
+            dot.className = 'month-dot';
+            if (i===currentMonth) dot.classList.add('active');
+            if (withEvents.includes(i)) dot.classList.add('has-events');
+            const label = document.createElement('span');
+            label.className = 'month-dot-label'; label.textContent = monthShort[i];
+            wrapper.appendChild(dot); wrapper.appendChild(label);
+            const go = () => { currentMonth=i; renderCalendar(); };
+            wrapper.addEventListener('click', go);
+            wrapper.addEventListener('keydown', ev => { if (ev.key==='Enter'||ev.key===' ') go(); });
+            monthDotsEl.appendChild(wrapper);
+        }
+    }
+
+    function renderStandings(type, data) {
+        const container = type==='drivers' ? driversListEl : constructorsListEl;
+        if (!data?.length) { container.innerHTML='<p style="color:var(--text-tertiary);text-align:center;padding:20px">No data available</p>'; return; }
+        container.innerHTML = data.map(d => {
+            let name='', teamHtml='';
+            if (type==='drivers') {
+                name = `${d.Driver?.givenName||''} ${d.Driver?.familyName||''}`.trim();
+                const t = d.Constructors?.[0]?.name || d.Constructor?.name || '';
+                if (t) teamHtml = `<div class="standings-team">${t}</div>`;
+            } else name = d.Constructor?.name || 'Unknown';
+            return `<div class="standings-item"><div class="standings-pos ${d.position<=3?'p'+d.position:'normal'}">${d.position}</div><div class="standings-info"><div class="standings-name">${name}</div>${teamHtml}</div><div class="standings-points">${d.points} PTS</div></div>`;
+        }).join('');
+    }
+
+    function updateStatus(text, success=false) {
+        statusTextEl.textContent = text;
+        statusDotEl.className = 'update-dot' + (success?' active':'');
+    }
+
+    document.querySelector('#cal-2026 .nav-btn.prev').addEventListener('click', () => { if (currentMonth>0)  { currentMonth--; renderCalendar(); } });
+    document.querySelector('#cal-2026 .nav-btn.next').addEventListener('click', () => { if (currentMonth<11) { currentMonth++; renderCalendar(); } });
+
+    function shareRound(round, name) {
+        const url = `${window.location.href.split('#')[0]}#round-${round}`;
+        if (navigator.clipboard) navigator.clipboard.writeText(url).then(() => showToast(`\uD83D\uDD17 Link to ${name} copied!`));
+        else { const t=document.createElement('textarea'); t.value=url; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); showToast(`\uD83D\uDD17 Link copied!`); }
+    }
+
+    // ── Init ──
+    tryLiveAPI();
+</script>
+</body>
+</html>
