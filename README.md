@@ -33,11 +33,13 @@
 
 ### Light Mode
 
+<img width="1263" height="1025" alt="f1l" src="https://github.com/user-attachments/assets/f0f2aa25-0749-4601-9096-c51d5d7a05e1" />
 
 *Calendar view with race cards and standings*
 
 ### Dark Mode
 
+<img width="1260" height="1017" alt="f1d" src="https://github.com/user-attachments/assets/3fdb8ad0-489b-414b-9d95-8022be75d8b7" />
 
 *Sleek dark theme for night viewing*
 
