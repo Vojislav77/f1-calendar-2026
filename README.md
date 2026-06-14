@@ -1,95 +1,84 @@
-# 🏎️ F1 Calendar 2026
+# F1 Calendar 2026
 
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://yourusername.github.io/f1-calendar-2026/)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-**A beautiful, real-time Formula 1 2026 season calendar with live race data, championship standings, and podium results.**
+**A modern, highly optimized Progressive Web App (PWA) built to track the 2026 Formula 1 racing season. This application functions entirely client-side, providing a fast, fluid user experience with automated dark mode integration, comprehensive data navigation, and full offline accessibility.**
 
 ![F1 Calendar Preview](https://img.shields.io/badge/Status-Active-success)
 
 ---
 
-## ✨ Features
+## Features
 
-- 📅 **Interactive Calendar** - Browse races by month with intuitive navigation
-- 🏆 **Live Standings** - Real-time Driver and Constructor championships
-- 🥇 **Podium Results** - Top 3 finishers for completed races
--  **Race Status** - Track upcoming, completed, and canceled races
-- 🌙 **Dark Mode** - Easy on the eyes, toggle between light/dark themes
-- 📱 **Fully Responsive** - Perfect on desktop, tablet, and mobile
-- ⚡ **Sprint Races** - Special indicators for sprint weekend events
-- 🔄 **Auto-Updates** - Daily data sync from official F1 API
-
----
-
-## 🚀 Live Demo
-
-**👉 [View Live Demo](https://vojislav77.github.io/f1-calendar-2026/)**
-
-*(Replace with your actual GitHub Pages URL after deployment)*
+- **Dynamic Race Schedule:** Month-by-month browsing of the 2026 Grand Prix schedule with localized session breakdowns, integrated maps, and race status markers.
+- **Sprint Filter Toggle:** A dedicated filtering system allowing users to instantly isolate and view only the race weekends hosting Sprint events.
+- **Live Championship Standings:** Automated live data syncing for both Driver and Constructor standings.
+- **Progressive Web App (PWA):** Equipped with a custom web application manifest and service worker configuration, making the platform completely installable on Android, iOS, and desktop platforms.
+- **Advanced Offline Synchronization:** Implements a dual-layer strategy using separate cache storages:
+  - Cache-First strategy for the core application shell (HTML, layout, styling, typography).
+  - Network-First strategy with a 5-second fallback window for handling real-time api data, keeping statistics active even while completely disconnected.
+- **Responsive Layout Architecture:** Styled using custom modern CSS variables and flex/grid architectures optimized for desktop, tablet, and mobile displays.
+- **Keyboard Shortcuts:** Built-in accessibility commands featuring arrow key month-navigation (`Left` / `Right`) and deep developer metrics toggles (`Shift` + `D`).
 
 ---
 
-## 📸 Screenshots
+## Live Demo
+
+**[View Live Demo](https://vojislav77.github.io/f1-calendar-2026/)**
+
+---
+
+## Screenshots
 
 ### Light Mode
-<img width="1689" height="2427" alt="f1-calendar-2026-light" src="https://github.com/user-attachments/assets/c3225063-f288-44cd-ad66-8336a9e49f0f" />
+
 
 *Calendar view with race cards and standings*
 
 ### Dark Mode
-<img width="1689" height="2427" alt="f1-calendar-2026-dark" src="https://github.com/user-attachments/assets/e0711e13-a402-4d0f-a47c-edcae2c88312" />
+
 
 *Sleek dark theme for night viewing*
 
 ---
+## Architecture and File Structure
 
-## 🛠️ Technologies Used
+The workspace is highly consolidated, emphasizing zero-dependency performance:
 
-- **HTML5** - Semantic structure
-- **CSS3** - Modern styling with CSS variables
-- **JavaScript (Vanilla)** - No frameworks, pure JS
-- **F1 API** - Live data from Ergast/Jolpi API
-- **GitHub Pages** - Free hosting with auto-deployment
+- `index.html`: Contains the core document markup, modern CSS variable configurations, comprehensive theme switching, and main application lifecycle scripts.
+- `manifest.json`: Configuration defining app icons (including standalone maskable attributes), localized naming, accent coloration, and standalone portrait execution requirements.
+- `sw.js`: The system's Service Worker script governing asset pre-caching routines and selective network proxy intercepts for Ergast / Jolpi API responses.
 
----
+## Core Technologies Used
 
-## 📋 Features Breakdown
+- Semantic HTML5
+- Vanilla CSS3 (featuring responsive media queries, CSS variables, and modern blur backdrops)
+- Asynchronous ECMAScript 6+ (Fetch API, Service Worker API, AbortController timeout handling)
 
-### Calendar View
-- Month-by-month navigation
-- Race cards showing:
-  - Round number
-  - Grand Prix name
-  - Circuit details
-  - Location (city, country)
-  - Date & time (UTC)
-  - Sprint weekend indicator
-  - Race status badge
-  - Podium results (for completed races)
+## Local Development and Installation
 
-### Championship Standings
-- **Drivers Championship**
-  - Position, Name, Team, Points
-  - Top 3 highlighted with medals
-  
-- **Constructors Championship**
-  - Position, Team, Points
-  - Real-time updates
+Due to standard browser security configurations governing the Service Worker API and CORS restrictions for network tracking, the application should be served from an absolute origin rather than directly via a local file utility (`file://`).
 
-### Race Status Indicators
-- 🟢 **Finished** - Green badge with podium
-- 🔵 **Upcoming** - Blue badge
-- 🔴 **Canceled** - Red badge with reason
+### Running the Project Locally
 
----
+1. Clone or download the repository into a directory of your choice.
+2. Launch a local web server from the project's root folder using any of the following terminal commands:
 
-## 🚀 Usage
-
-### Online (Recommended)
-Simply visit the [live demo](https://vojislav77.github.io/f1-calendar-2026/) - no installation needed!
-
-### Local Development
-1. Clone the repository:
+   **Using Python 3:**
    ```bash
-   git clone https://github.com/vojislav77/f1-calendar-2026.git
+   python3 -m http.server 8000
+
+Using Node.js (npx): npx serve
+
+3. Open your browser and navigate to http://localhost:8000 or http://localhost:3000 based on your server output.
+
+
+## Installation via PWA
+
+Once running under a secure origin (https://) or a verified local environment (localhost), an inline installation prompt will appear near the bottom of the interface. Selecting "Install" integrates the application directly into your operating system's launcher menu or home screen.
+License
+
+## This project is open-source and available under the MIT License.
+
+---
