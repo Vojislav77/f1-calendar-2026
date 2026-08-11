@@ -1,8 +1,8 @@
 // F1 Calendar 2026 — Service Worker
 // Cache-first for app shell, network-first for API data
 
-const CACHE_NAME    = 'f1-calendar-2026-v1';
-const API_CACHE     = 'f1-api-2026-v1';
+const CACHE_NAME    = 'f1-calendar-2026-v2';
+const API_CACHE     = 'f1-api-2026-v2';
 
 // Files that make up the app shell (cache on install)
 const APP_SHELL = [
