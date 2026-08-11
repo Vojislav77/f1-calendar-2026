@@ -348,6 +348,11 @@
     function formatLocalDate(dt) {
         return dt.toLocaleDateString(userLocale, { weekday: 'long', month: 'long', day: 'numeric' });
     }
+    // Escape dynamic text before inserting into innerHTML templates.
+    const escMap = { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' };
+    function esc(value) {
+        return String(value ?? '').replace(/[&<>"']/g, c => escMap[c]);
+    }
 
     // DOM
     const monthTitleEl         = document.querySelector('#cal-2026 .month-title');
@@ -446,46 +451,82 @@
             + `&location=${encodeURIComponent(event.location)}`;
     }
 
-    // ── Fallback data — no hardcoded canceled, no hardcoded status ──
+    // ── Season metadata — official 2026 F1 calendar (FIA/F1) ──
+    // Start times are UTC. Sprint weekends per F1's 2026 announcement:
+    // China, Miami, Canada, Great Britain, Netherlands, Singapore.
+    // Used to enrich the live API (which lacks times/sprints) AND as the
+    // single source of time/sprint data for the offline fallback.
+    const SEASON_OVERRIDES = {
+        1:  { time: "04:00 UTC" },
+        2:  { time: "07:00 UTC", sprint: true },
+        3:  { time: "05:00 UTC" },
+        4:  { time: "20:00 UTC", sprint: true },
+        5:  { time: "20:00 UTC", sprint: true },
+        6:  { time: "13:00 UTC" },
+        7:  { time: "13:00 UTC" },
+        8:  { time: "13:00 UTC" },
+        9:  { time: "14:00 UTC", sprint: true },
+        10: { time: "13:00 UTC" },
+        11: { time: "13:00 UTC" },
+        12: { time: "13:00 UTC", sprint: true },
+        13: { time: "13:00 UTC" },
+        14: { time: "13:00 UTC" },
+        15: { time: "11:00 UTC" },
+        16: { time: "06:00 UTC" },
+        17: { time: "12:00 UTC", sprint: true },
+        18: { time: "20:00 UTC" },
+        19: { time: "20:00 UTC" },
+        20: { time: "17:00 UTC" },
+        21: { time: "04:00 UTC" },
+        22: { time: "16:00 UTC" },
+        23: { time: "13:00 UTC" }
+    };
+
+    // ── Fallback data — official 2026 calendar, real results through round 11 ──
     const fallbackEvents = [
-        { round:  1, name: "Australian Grand Prix",     subtitle: "Albert Park Circuit",                  location: "Melbourne, Australia",        date: "2026-03-08", time: "05:00 UTC", sprint: false, podium: [{pos:1,driver:"Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"George Russell",team:"Mercedes"},{pos:3,driver:"Charles Leclerc",team:"Ferrari"}] },
-        { round:  2, name: "Chinese Grand Prix",        subtitle: "Shanghai International Circuit",       location: "Shanghai, China",              date: "2026-03-22", time: "07:00 UTC", sprint: true,  podium: [{pos:1,driver:"Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"George Russell",team:"Mercedes"},{pos:3,driver:"Lewis Hamilton",team:"Ferrari"}] },
-        { round:  3, name: "Japanese Grand Prix",       subtitle: "Suzuka International Racing Course",   location: "Suzuka, Japan",                date: "2026-04-05", time: "05:00 UTC", sprint: false, podium: [{pos:1,driver:"George Russell",team:"Mercedes"},{pos:2,driver:"Charles Leclerc",team:"Ferrari"},{pos:3,driver:"Lando Norris",team:"McLaren"}] },
-        { round:  4, name: "Bahrain Grand Prix",        subtitle: "Bahrain International Circuit",        location: "Sakhir, Bahrain",              date: "2026-04-12", time: "15:00 UTC", sprint: false, podium: null },
-        { round:  5, name: "Saudi Arabian Grand Prix",  subtitle: "Jeddah Corniche Circuit",              location: "Jeddah, Saudi Arabia",         date: "2026-04-19", time: "17:00 UTC", sprint: false, podium: null },
-        { round:  6, name: "Miami Grand Prix",          subtitle: "Miami International Autodrome",        location: "Miami, USA",                   date: "2026-05-03", time: "19:30 UTC", sprint: true,  podium: null },
-        { round:  7, name: "Emilia Romagna Grand Prix", subtitle: "Autodromo Enzo e Dino Ferrari",        location: "Imola, Italy",                 date: "2026-05-17", time: "13:00 UTC", sprint: false, podium: null },
-        { round:  8, name: "Monaco Grand Prix",         subtitle: "Circuit de Monaco",                    location: "Monte Carlo, Monaco",          date: "2026-05-24", time: "13:00 UTC", sprint: false, podium: null },
-        { round:  9, name: "Spanish Grand Prix",        subtitle: "Circuit de Barcelona-Catalunya",       location: "Montmeló, Spain",         date: "2026-05-31", time: "13:00 UTC", sprint: false, podium: null },
-        { round: 10, name: "Canadian Grand Prix",       subtitle: "Circuit Gilles Villeneuve",            location: "Montreal, Canada",             date: "2026-06-14", time: "18:00 UTC", sprint: false, podium: null },
-        { round: 11, name: "Austrian Grand Prix",       subtitle: "Red Bull Ring",                        location: "Spielberg, Austria",           date: "2026-06-28", time: "13:00 UTC", sprint: true,  podium: null },
-        { round: 12, name: "British Grand Prix",        subtitle: "Silverstone Circuit",                  location: "Silverstone, United Kingdom",  date: "2026-07-05", time: "14:00 UTC", sprint: false, podium: null },
-        { round: 13, name: "Belgian Grand Prix",        subtitle: "Circuit de Spa-Francorchamps",         location: "Stavelot, Belgium",            date: "2026-07-26", time: "13:00 UTC", sprint: false, podium: null },
-        { round: 14, name: "Hungarian Grand Prix",      subtitle: "Hungaroring",                          location: "Budapest, Hungary",            date: "2026-08-02", time: "13:00 UTC", sprint: false, podium: null },
-        { round: 15, name: "Dutch Grand Prix",          subtitle: "Circuit Zandvoort",                    location: "Zandvoort, Netherlands",       date: "2026-08-30", time: "13:00 UTC", sprint: false, podium: null },
-        { round: 16, name: "Italian Grand Prix",        subtitle: "Autodromo Nazionale di Monza",         location: "Monza, Italy",                 date: "2026-09-06", time: "13:00 UTC", sprint: false, podium: null },
-        { round: 17, name: "Azerbaijan Grand Prix",     subtitle: "Baku City Circuit",                    location: "Baku, Azerbaijan",             date: "2026-09-20", time: "11:00 UTC", sprint: false, podium: null },
-        { round: 18, name: "Singapore Grand Prix",      subtitle: "Marina Bay Street Circuit",            location: "Singapore",                    date: "2026-10-04", time: "12:00 UTC", sprint: false, podium: null },
-        { round: 19, name: "United States Grand Prix",  subtitle: "Circuit of the Americas",              location: "Austin, USA",                  date: "2026-10-18", time: "19:00 UTC", sprint: true,  podium: null },
-        { round: 20, name: "Mexico City Grand Prix",    subtitle: "Autódromo Hermanos Rodríguez", location: "Mexico City, Mexico",        date: "2026-10-25", time: "20:00 UTC", sprint: false, podium: null },
-        { round: 21, name: "São Paulo Grand Prix", subtitle: "Autódromo José Carlos Pace", location: "São Paulo, Brazil",       date: "2026-11-08", time: "17:00 UTC", sprint: true,  podium: null },
-        { round: 22, name: "Las Vegas Grand Prix",      subtitle: "Las Vegas Strip Circuit",              location: "Las Vegas, USA",               date: "2026-11-21", time: "06:00 UTC", sprint: false, podium: null },
-        { round: 23, name: "Qatar Grand Prix",          subtitle: "Lusail International Circuit",         location: "Lusail, Qatar",                date: "2026-11-29", time: "14:00 UTC", sprint: true,  podium: null },
-        { round: 24, name: "Abu Dhabi Grand Prix",      subtitle: "Yas Marina Circuit",                   location: "Abu Dhabi, UAE",               date: "2026-12-06", time: "13:00 UTC", sprint: false, podium: null }
-    ];
+        { round:  1, name: "Australian Grand Prix",          subtitle: "Albert Park Circuit",                 location: "Melbourne, Australia",       date: "2026-03-08", podium: [{pos:1,driver:"George Russell",team:"Mercedes"},{pos:2,driver:"Andrea Kimi Antonelli",team:"Mercedes"},{pos:3,driver:"Charles Leclerc",team:"Ferrari"}] },
+        { round:  2, name: "Chinese Grand Prix",             subtitle: "Shanghai International Circuit",      location: "Shanghai, China",             date: "2026-03-15", podium: [{pos:1,driver:"Andrea Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"George Russell",team:"Mercedes"},{pos:3,driver:"Lewis Hamilton",team:"Ferrari"}] },
+        { round:  3, name: "Japanese Grand Prix",            subtitle: "Suzuka International Racing Course", location: "Suzuka, Japan",               date: "2026-03-29", podium: [{pos:1,driver:"Andrea Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"Oscar Piastri",team:"McLaren"},{pos:3,driver:"Charles Leclerc",team:"Ferrari"}] },
+        { round:  4, name: "Miami Grand Prix",               subtitle: "Miami International Autodrome",       location: "Miami, USA",                  date: "2026-05-03", podium: [{pos:1,driver:"Andrea Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"Lando Norris",team:"McLaren"},{pos:3,driver:"Oscar Piastri",team:"McLaren"}] },
+        { round:  5, name: "Canadian Grand Prix",            subtitle: "Circuit Gilles Villeneuve",           location: "Montreal, Canada",            date: "2026-05-24", podium: [{pos:1,driver:"Andrea Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"Lewis Hamilton",team:"Ferrari"},{pos:3,driver:"Max Verstappen",team:"Red Bull"}] },
+        { round:  6, name: "Monaco Grand Prix",              subtitle: "Circuit de Monaco",                   location: "Monte Carlo, Monaco",         date: "2026-06-07", podium: [{pos:1,driver:"Andrea Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"Lewis Hamilton",team:"Ferrari"},{pos:3,driver:"Pierre Gasly",team:"Alpine F1 Team"}] },
+        { round:  7, name: "Barcelona-Catalunya Grand Prix", subtitle: "Circuit de Barcelona-Catalunya",      location: "Montmeló, Spain",            date: "2026-06-14", podium: [{pos:1,driver:"Lewis Hamilton",team:"Ferrari"},{pos:2,driver:"George Russell",team:"Mercedes"},{pos:3,driver:"Lando Norris",team:"McLaren"}] },
+        { round:  8, name: "Austrian Grand Prix",            subtitle: "Red Bull Ring",                       location: "Spielberg, Austria",          date: "2026-06-28", podium: [{pos:1,driver:"George Russell",team:"Mercedes"},{pos:2,driver:"Max Verstappen",team:"Red Bull"},{pos:3,driver:"Andrea Kimi Antonelli",team:"Mercedes"}] },
+        { round:  9, name: "British Grand Prix",             subtitle: "Silverstone Circuit",                 location: "Silverstone, United Kingdom", date: "2026-07-05", podium: [{pos:1,driver:"Charles Leclerc",team:"Ferrari"},{pos:2,driver:"George Russell",team:"Mercedes"},{pos:3,driver:"Lewis Hamilton",team:"Ferrari"}] },
+        { round: 10, name: "Belgian Grand Prix",             subtitle: "Circuit de Spa-Francorchamps",        location: "Stavelot, Belgium",           date: "2026-07-19", podium: [{pos:1,driver:"Andrea Kimi Antonelli",team:"Mercedes"},{pos:2,driver:"Charles Leclerc",team:"Ferrari"},{pos:3,driver:"Max Verstappen",team:"Red Bull"}] },
+        { round: 11, name: "Hungarian Grand Prix",           subtitle: "Hungaroring",                         location: "Budapest, Hungary",           date: "2026-07-26", podium: [{pos:1,driver:"Lando Norris",team:"McLaren"},{pos:2,driver:"Max Verstappen",team:"Red Bull"},{pos:3,driver:"Andrea Kimi Antonelli",team:"Mercedes"}] },
+        { round: 12, name: "Dutch Grand Prix",               subtitle: "Circuit Zandvoort",                   location: "Zandvoort, Netherlands",      date: "2026-08-23", podium: null },
+        { round: 13, name: "Italian Grand Prix",             subtitle: "Autodromo Nazionale di Monza",        location: "Monza, Italy",                date: "2026-09-06", podium: null },
+        { round: 14, name: "Spanish Grand Prix",             subtitle: "Madring",                             location: "Madrid, Spain",               date: "2026-09-13", podium: null },
+        { round: 15, name: "Azerbaijan Grand Prix",          subtitle: "Baku City Circuit",                   location: "Baku, Azerbaijan",            date: "2026-09-26", podium: null },
+        { round: 16, name: "Bahrain Grand Prix in Malaysia", subtitle: "Sepang International Circuit",        location: "Kuala Lumpur, Malaysia",      date: "2026-10-04", podium: null },
+        { round: 17, name: "Singapore Grand Prix",           subtitle: "Marina Bay Street Circuit",           location: "Singapore",                   date: "2026-10-11", podium: null },
+        { round: 18, name: "United States Grand Prix",       subtitle: "Circuit of the Americas",             location: "Austin, USA",                 date: "2026-10-25", podium: null },
+        { round: 19, name: "Mexico City Grand Prix",         subtitle: "Autódromo Hermanos Rodríguez",       location: "Mexico City, Mexico",         date: "2026-11-01", podium: null },
+        { round: 20, name: "São Paulo Grand Prix",           subtitle: "Autódromo José Carlos Pace",         location: "São Paulo, Brazil",           date: "2026-11-08", podium: null },
+        { round: 21, name: "Las Vegas Grand Prix",           subtitle: "Las Vegas Strip Circuit",             location: "Las Vegas, USA",              date: "2026-11-22", podium: null },
+        { round: 22, name: "Qatar Grand Prix",               subtitle: "Lusail International Circuit",        location: "Lusail, Qatar",               date: "2026-11-29", podium: null },
+        { round: 23, name: "Abu Dhabi Grand Prix",           subtitle: "Yas Marina Circuit",                  location: "Abu Dhabi, UAE",              date: "2026-12-06", podium: null }
+    ].map(e => ({ ...e, time: SEASON_OVERRIDES[e.round].time, sprint: !!SEASON_OVERRIDES[e.round].sprint }));
     const fallbackDrivers = [
-        { position:1, Driver:{givenName:"Kimi",   familyName:"Antonelli"}, Constructors:[{name:"Mercedes"}], points:72 },
-        { position:2, Driver:{givenName:"George", familyName:"Russell"},   Constructors:[{name:"Mercedes"}], points:63 },
-        { position:3, Driver:{givenName:"Charles",familyName:"Leclerc"},   Constructors:[{name:"Ferrari"}],  points:49 },
-        { position:4, Driver:{givenName:"Lewis",  familyName:"Hamilton"},  Constructors:[{name:"Ferrari"}],  points:41 },
-        { position:5, Driver:{givenName:"Lando",  familyName:"Norris"},    Constructors:[{name:"McLaren"}],  points:25 }
+        { position: 1,  Driver:{givenName:"Andrea Kimi", familyName:"Antonelli"},   Constructors:[{name:"Mercedes"}],      points:219 },
+        { position: 2,  Driver:{givenName:"Lewis",       familyName:"Hamilton"},    Constructors:[{name:"Ferrari"}],       points:169 },
+        { position: 3,  Driver:{givenName:"George",      familyName:"Russell"},     Constructors:[{name:"Mercedes"}],      points:160 },
+        { position: 4,  Driver:{givenName:"Charles",     familyName:"Leclerc"},     Constructors:[{name:"Ferrari"}],       points:138 },
+        { position: 5,  Driver:{givenName:"Lando",       familyName:"Norris"},      Constructors:[{name:"McLaren"}],       points:128 },
+        { position: 6,  Driver:{givenName:"Max",         familyName:"Verstappen"},  Constructors:[{name:"Red Bull"}],      points:109 },
+        { position: 7,  Driver:{givenName:"Oscar",       familyName:"Piastri"},     Constructors:[{name:"McLaren"}],       points:92  },
+        { position: 8,  Driver:{givenName:"Isack",       familyName:"Hadjar"},      Constructors:[{name:"Red Bull"}],      points:68  },
+        { position: 9,  Driver:{givenName:"Liam",        familyName:"Lawson"},      Constructors:[{name:"RB F1 Team"}],    points:43  },
+        { position: 10, Driver:{givenName:"Pierre",      familyName:"Gasly"},       Constructors:[{name:"Alpine F1 Team"}], points:42 }
     ];
     const fallbackConstructors = [
-        { position:1, Constructor:{name:"Mercedes"},    points:135 },
-        { position:2, Constructor:{name:"Ferrari"},     points:90  },
-        { position:3, Constructor:{name:"McLaren"},     points:46  },
-        { position:4, Constructor:{name:"Haas F1 Team"},points:18  },
-        { position:5, Constructor:{name:"Alpine"},      points:16  }
+        { position: 1, Constructor:{name:"Mercedes"},     points:379 },
+        { position: 2, Constructor:{name:"Ferrari"},      points:307 },
+        { position: 3, Constructor:{name:"McLaren"},      points:220 },
+        { position: 4, Constructor:{name:"Red Bull"},     points:177 },
+        { position: 5, Constructor:{name:"RB F1 Team"},   points:66  },
+        { position: 6, Constructor:{name:"Alpine F1 Team"}, points:61 }
     ];
 
     // ── API ──
@@ -529,18 +570,21 @@
 
     async function parseLiveSchedule(races) {
         eventsData = races.map(race => {
-            let utcStr = `${race.date}T${race.Time?.time || '00:00:00Z'}`;
+            const round   = parseInt(race.round);
+            const override = SEASON_OVERRIDES[round];
+            const timeStr = race.Time?.time || override?.time || null;
+            let utcStr = `${race.date}T${timeStr ? timeStr.replace(' UTC', ':00Z') : '00:00:00Z'}`;
             if (!utcStr.endsWith('Z')) utcStr += 'Z';
             const dt = new Date(utcStr);
             return {
-                round:       parseInt(race.round),
+                round:       round,
                 name:        race.raceName,
                 subtitle:    race.Circuit.circuitName,
                 location:    `${race.Circuit.Location.locality}, ${race.Circuit.Location.country}`,
                 date:        race.date,
                 displayDate: formatLocalDate(dt),
-                time:        race.Time?.time ? formatLocalTime(dt) : 'TBA',
-                sprint:      race.Sprints?.length > 0,
+                time:        timeStr ? formatLocalTime(dt) : 'TBA',
+                sprint:      override?.sprint ?? (race.Sprints?.length > 0),
                 status:      dt < new Date() ? 'completed' : 'upcoming',
                 canceled:    false, podium: null, rawDateTime: dt
             };
@@ -633,19 +677,19 @@
 
                 let podiumHtml = '';
                 if (isCompleted && e.podium) {
-                    podiumHtml = `<div class="podium-section"><div class="podium-title">Podium</div>${e.podium.map(p=>`<div class="podium-item"><div class="podium-pos ${p.pos===1?'gold':p.pos===2?'silver':'bronze'}">${p.pos}</div><div><div class="podium-driver">${p.driver}</div><div class="podium-team">${p.team}</div></div></div>`).join('')}</div>`;
+                    podiumHtml = `<div class="podium-section"><div class="podium-title">Podium</div>${e.podium.map(p=>`<div class="podium-item"><div class="podium-pos ${p.pos===1?'gold':p.pos===2?'silver':'bronze'}">${p.pos}</div><div><div class="podium-driver">${esc(p.driver)}</div><div class="podium-team">${esc(p.team)}</div></div></div>`).join('')}</div>`;
                 }
 
                 const circuitHtml = '';
 
                 const calBtns = !isCanceled ? `<div class="event-card-footer">
-                    <button class="cal-btn" onclick="downloadICS(eventsData.find(x=>x.round===${e.round}))" title="Download .ics">
+                    <button class="cal-btn" data-action="ics" title="Download .ics">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>.ics
                     </button>
                     <a class="cal-btn" href="${googleCalURL(e)}" target="_blank" rel="noopener" title="Add to Google Calendar">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Google Cal
                     </a>
-                    <button class="cal-btn share-btn" onclick="shareRound(${e.round},'${e.name.replace(/'/g,"\\'")}')">
+                    <button class="cal-btn share-btn" data-action="share" title="Copy link">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share
                     </button></div>` : '';
 
@@ -659,12 +703,12 @@
                             <span class="event-round">Round ${e.round}</span>
                             <div class="badge-group">${e.sprint?'<span class="event-sprint-badge">\u26A1 Sprint</span>':''}<span class="status-badge ${statusClass}">${statusText}</span></div>
                         </div>
-                        <div class="event-name">${e.name}</div>
-                        <div class="event-subtitle">${e.subtitle}</div>
+                        <div class="event-name">${esc(e.name)}</div>
+                        <div class="event-subtitle">${esc(e.subtitle)}</div>
                         <div class="event-details">
                             <div class="event-detail">
                                 <div class="event-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-                                <div class="event-detail-content"><span class="event-detail-label">Location</span><span class="event-detail-value">${e.location}</span></div>
+                                <div class="event-detail-content"><span class="event-detail-label">Location</span><span class="event-detail-value">${esc(e.location)}</span></div>
                             </div>
                             <div class="event-detail">
                                 <div class="event-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
@@ -717,9 +761,9 @@
             if (type==='drivers') {
                 name = `${d.Driver?.givenName||''} ${d.Driver?.familyName||''}`.trim();
                 const t = d.Constructors?.[0]?.name || d.Constructor?.name || '';
-                if (t) teamHtml = `<div class="standings-team">${t}</div>`;
+                if (t) teamHtml = `<div class="standings-team">${esc(t)}</div>`;
             } else name = d.Constructor?.name || 'Unknown';
-            return `<div class="standings-item"><div class="standings-pos ${d.position<=3?'p'+d.position:'normal'}">${d.position}</div><div class="standings-info"><div class="standings-name">${name}</div>${teamHtml}</div><div class="standings-points">${d.points} PTS</div></div>`;
+            return `<div class="standings-item"><div class="standings-pos ${d.position<=3?'p'+d.position:'normal'}">${d.position}</div><div class="standings-info"><div class="standings-name">${esc(name)}</div>${teamHtml}</div><div class="standings-points">${d.points} PTS</div></div>`;
         }).join('');
     }
 
@@ -730,6 +774,17 @@
 
     document.querySelector('#cal-2026 .nav-btn.prev').addEventListener('click', () => { if (currentMonth>0)  { currentMonth--; renderCalendar(); } });
     document.querySelector('#cal-2026 .nav-btn.next').addEventListener('click', () => { if (currentMonth<11) { currentMonth++; renderCalendar(); } });
+
+    // Event delegation for the .ics / share buttons on race cards
+    eventsGridEl.addEventListener('click', ev => {
+        const btn = ev.target.closest('[data-action]');
+        if (!btn) return;
+        const card = btn.closest('.event-card');
+        const evt  = card && eventsData.find(x => x.round === parseInt(card.dataset.round));
+        if (!evt) return;
+        if (btn.dataset.action === 'ics') downloadICS(evt);
+        else if (btn.dataset.action === 'share') shareRound(evt.round, evt.name);
+    });
 
     function shareRound(round, name) {
         const url = `${window.location.href.split('#')[0]}#round-${round}`;
