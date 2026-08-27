@@ -1,8 +1,8 @@
 // F1 Calendar 2026 — Service Worker
-// Cache-first for app shell, network-first for API data
+// Network-first for app shell + API data, cache fallback when offline
 
-const CACHE_NAME    = 'f1-calendar-2026-v2';
-const API_CACHE     = 'f1-api-2026-v2';
+const CACHE_NAME    = 'f1-calendar-2026-v4';
+const API_CACHE     = 'f1-api-2026-v4';
 
 // Files that make up the app shell (cache on install)
 const APP_SHELL = [
@@ -40,7 +40,7 @@ self.addEventListener('fetch', event => {
 
   // F1 API requests — network first, fall back to cache (stale data is better than nothing)
   if (url.hostname.includes('jolpi.ca') || url.hostname.includes('ergast.com')) {
-    event.respondWith(networkFirstStrategy(event.request, API_CACHE, 5000));
+    event.respondWith(networkFirstStrategy(event.request, API_CACHE, 10000));
     return;
   }
 
@@ -50,9 +50,9 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // App shell — cache first
+  // App shell — network first (picks up updates automatically), falls back to cache when offline
   if (url.origin === self.location.origin) {
-    event.respondWith(cacheFirstStrategy(event.request, CACHE_NAME));
+    event.respondWith(networkFirstStrategy(event.request, CACHE_NAME, 5000));
     return;
   }
 });
